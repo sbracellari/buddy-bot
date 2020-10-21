@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Buddy Bot. Programming Helper.</title>
+	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/setup.css">
+	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/says.css">
+	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/reply.css">
+	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/typing.css">
+	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/input.css">
+	<style>
+	body {
+        background: #adebeb;
+        
+    }
+    .element-style{
+        padding-bottom: 100px;
+        padding-top: 100px;
+    }
+    .bubble-wrap, .bubble-container{
+        background: #d6f5f5;
+    }
+	.bubble-container {
+        height: 100vh;
+	}
+	.bubble-container .input-wrap textarea {
+		margin: 0;
+		width: calc(100% - 30px);
+    }
+	</style>
+</head>
+<body>
+<h1> 
+    <img src="https://wallpaperaccess.com/full/557726.png" alt="buddy bot image"style="width:754px;height:378px;"> 
+</h1>
+
+<!----ASHLEY ADD AN HTML IMAGE MAP TO THE TIP OF BUDDY BOT to turn him 'evil' !!-->
+<!---- the script -->
+<script src="./chat-bubble/component/Bubbles.js"></script>
+
+<!-- container element for chat window -->
+<div id="chat"></div>
+
+<!-- import the JavaScript file -->
+<script src="chat-bubble/component/Bubbles.js"></script>
+<script>
+// initialize by constructing a named function...
+// ...and add text processing plugin:
+var chatWindow = new Bubbles(document.getElementById("chat"), "chatWindow", {
+  // the one that we care about is inputCallbackFn()
+  // this function returns an object with some data that we can process from user input
+  // and understand the context of it
+
+  // this is an example function that matches the text user typed to one of the answer bubbles
+  // this function does no natural language processing
+  // this is where you may want to connect this script to NLC backend.
+  inputCallbackFn: function(o) {
+    // add error conversation block & recall it if no answer matched
+    var miss = function() {
+      chatWindow.talk(
+        {
+          "i-dont-get-it": {
+            says: [
+              "I cannot answer that question currently, hopefully I can reply soon!"
+            ],
+            reply:[
+      {
+        question: "Start Over",
+        answer: "ice"
+      }
+    ]
+          }
+        },
+        "i-dont-get-it"
+      )
+    }
+
+    // do this if answer found
+    var match = function(key) {
+      setTimeout(function() {
+        chatWindow.talk(convo, key) // restart current convo from point found in the answer
+      }, 600)
+    }
+
+    // sanitize text for search function
+    var strip = function(text) {
+      return text.toLowerCase().replace(/[\s.,\/#!$%\^&\*;:{}=\-_'"`~()]/g, "")
+    }
+
+    // search function
+    var found = false
+    o.convo[o.standingAnswer].reply.forEach(function(e, i) {
+      strip(e.question).includes(strip(o.input)) && o.input.length > 0
+        ? (found = e.answer)
+        : found ? null : (found = false)
+    })
+    found ? match(found) : miss()
+  }
+}) // done setting up chat-bubble
+
+// conversation object defined separately, but just the same as in the
+// "Basic chat-bubble Example" (1-basics.html)
+var convo = {
+  ice: {
+    says: ["Hello Welcome to Buddy Bot.", "Please click the following reply, or chat below."],
+    reply: [
+      {
+        question: "What is Buddy Bot?",
+        answer: "about"
+      },
+      {
+        question: "Where is your FAQ?",
+        answer: "faq"
+      }
+    ]
+  },
+  about: {
+    says: ["Buddy Bot, is a chatbot designed to answer all of your programming needs.", "Please type your question below, and I'll be sure to answer."],
+    reply: [
+      {
+        question: "Start Over?",
+        answer: "ice"
+      }
+    ]
+  },
+  faq: {
+    says: ["Our FAQ is located at the top of the page!"],
+    reply: [
+      {
+        question: "Start Over?",
+        answer: "ice"
+      }
+    ]
+  }
+}
+
+// pass JSON to your function and you're done!
+chatWindow.talk(convo)
+</script>
+</body>
