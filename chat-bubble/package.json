@@ -1,0 +1,52 @@
+{
+  "_from": "chat-bubble",
+  "_id": "chat-bubble@1.4.0",
+  "_inBundle": false,
+  "_integrity": "sha512-6uoeS6VDnv3j+5QUE479o4fOzlvvRVBy+4kuTawADof5YLoudswKiaX9Ekgy0VN82VrKLvMZ/Yd2zCU9/qe92w==",
+  "_location": "/chat-bubble",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "chat-bubble",
+    "name": "chat-bubble",
+    "escapedName": "chat-bubble",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/chat-bubble/-/chat-bubble-1.4.0.tgz",
+  "_shasum": "e33d91e4ebddc626210dedc3056775ffe64f17ab",
+  "_spec": "chat-bubble",
+  "_where": "C:\\Users\\ashmo\\Desktop\\chat-bubble-practice",
+  "author": {
+    "name": "dmitrizzle"
+  },
+  "bugs": {
+    "url": "https://github.com/dmitrizzle/chat-bubble/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Simple chatbot UI for Web with JSON scripting. Zero dependencies.",
+  "homepage": "https://github.com/dmitrizzle/chat-bubble#readme",
+  "keywords": [
+    "chatbot",
+    "chat",
+    "bot",
+    "chatui",
+    "conversation",
+    "javascript"
+  ],
+  "license": "MIT",
+  "main": "component/Bubble.js",
+  "name": "chat-bubble",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmitrizzle/chat-bubble.git"
+  },
+  "version": "1.4.0"
+}
