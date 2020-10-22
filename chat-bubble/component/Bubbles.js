@@ -1,3 +1,27 @@
+// fetch request
+function get_response(question){
+  const is_demo = true
+  
+  if(is_demo) {
+    return 'Use margin : auto'
+  }
+
+  try {
+    const response = fetch('/buddy-bot/v1/response', {
+      method: 'POST',
+      headers: {
+        Accept: 'applicaton/json'
+      },
+      body: JSON.stringify(question)
+    })    
+
+    const data = response.json()
+    return data 
+  } catch (err) {
+    return err
+  }
+}
+
 // core function
 function Bubbles(container, self, options) {
   // options
@@ -125,12 +149,11 @@ function Bubbles(container, self, options) {
   this.talk = function(convo, here) {
     // all further .talk() calls will append the conversation with additional blocks defined in convo parameter
     _convo = Object.assign(_convo, convo)
-
     this.reply(_convo[here])
     here ? (standingAnswer = here) : false
   }
 
-  var iceBreaker = false // this variable holds answer to whether this is the initative bot interaction or not
+  var iceBreaker = false // this variable holds answer to whether this is the initial bot interaction or not
   this.reply = function(turn) {
     iceBreaker = typeof turn === "undefined"
     turn = !iceBreaker ? turn : _convo.ice

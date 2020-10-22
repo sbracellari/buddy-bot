@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Buddy Bot. Programming Helper.</title>
+  <meta charset="UTF-8">
+	<title>Buddy Bot - A Programmer's Best Buddy.</title>
 	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/setup.css">
 	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/says.css">
 	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/reply.css">
 	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/typing.css">
 	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/input.css">
 	<style>
-	body {
-        background: #adebeb;
-        
+	  body {
+      background: #adebeb;
     }
     .element-style{
-        padding-bottom: 100px;
-        padding-top: 100px;
+      padding-bottom: 100px;
+      padding-top: 100px;
     }
     .bubble-wrap, .bubble-container{
-        background: #d6f5f5;
+      background: #d6f5f5;
     }
-	.bubble-container {
-        height: 100vh;
-	}
-	.bubble-container .input-wrap textarea {
-		margin: 0;
-		width: calc(100% - 30px);
+	  .bubble-container {
+      height: 100vh;
+	  }
+	  .bubble-container .input-wrap textarea {
+		  margin: 0;
+		  width: calc(100% - 30px);
     }
 	</style>
 </head>
@@ -39,14 +38,15 @@
 <script src="./chat-bubble/component/Bubbles.js"></script>
 
 <!-- container element for chat window -->
-<div id="chat"></div>
+<div id="buddy-bot"></div>
 
 <!-- import the JavaScript file -->
-<script src="chat-bubble/component/Bubbles.js"></script>
+<script src="./chat-bubble/component/Bubbles.js"></script>
+ 
 <script>
 // initialize by constructing a named function...
 // ...and add text processing plugin:
-var chatWindow = new Bubbles(document.getElementById("chat"), "chatWindow", {
+var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow", {
   // the one that we care about is inputCallbackFn()
   // this function returns an object with some data that we can process from user input
   // and understand the context of it
@@ -55,7 +55,9 @@ var chatWindow = new Bubbles(document.getElementById("chat"), "chatWindow", {
   // this function does no natural language processing
   // this is where you may want to connect this script to NLC backend.
   inputCallbackFn: function(o) {
-    // add error conversation block & recall it if no answer matched
+    const response =  get_response(o.input) // fetch response from backend
+
+    // do this if answer not found
     var miss = function() {
       chatWindow.talk(
         {
@@ -63,12 +65,10 @@ var chatWindow = new Bubbles(document.getElementById("chat"), "chatWindow", {
             says: [
               "I cannot answer that question currently, hopefully I can reply soon!"
             ],
-            reply:[
-      {
-        question: "Start Over",
-        answer: "ice"
-      }
-    ]
+            reply:[{
+              question: "Start Over",
+              answer: "ice"
+            }]
           }
         },
         "i-dont-get-it"
@@ -76,33 +76,36 @@ var chatWindow = new Bubbles(document.getElementById("chat"), "chatWindow", {
     }
 
     // do this if answer found
-    var match = function(key) {
-      setTimeout(function() {
-        chatWindow.talk(convo, key) // restart current convo from point found in the answer
-      }, 600)
+    var match = function() {
+      chatWindow.talk(
+        {
+          "i-get-it": {
+            says: [response, "Was that helpful?"],
+            reply:[
+              {
+                question: "Yes",
+                answer: "yes"
+              }, 
+              {
+                question: "No",
+                answer: "no"
+              }
+            ]
+          }
+        },
+        "i-get-it"
+      )
     }
 
-    // sanitize text for search function
-    var strip = function(text) {
-      return text.toLowerCase().replace(/[\s.,\/#!$%\^&\*;:{}=\-_'"`~()]/g, "")
-    }
-
-    // search function
-    var found = false
-    o.convo[o.standingAnswer].reply.forEach(function(e, i) {
-      strip(e.question).includes(strip(o.input)) && o.input.length > 0
-        ? (found = e.answer)
-        : found ? null : (found = false)
-    })
-    found ? match(found) : miss()
+    // if no answer is found, an empty string will be returned
+    response === '' ? miss() : match()
   }
 }) // done setting up chat-bubble
 
-// conversation object defined separately, but just the same as in the
-// "Basic chat-bubble Example" (1-basics.html)
+// conversation object
 var convo = {
   ice: {
-    says: ["Hello Welcome to Buddy Bot.", "Please click the following reply, or chat below."],
+    says: ["Hello! Welcome to Buddy Bot.", "Please click one of the following replies, or chat below."],
     reply: [
       {
         question: "What is Buddy Bot?",
@@ -115,22 +118,43 @@ var convo = {
     ]
   },
   about: {
-    says: ["Buddy Bot, is a chatbot designed to answer all of your programming needs.", "Please type your question below, and I'll be sure to answer."],
+    says: ["Buddy Bot is a chatbot designed to answer all of your programming needs.", "Please type your question below, and I'll be sure to answer."],
     reply: [
       {
-        question: "Start Over?",
-        answer: "ice"
+        question: "Where is your FAQ?",
+        answer: "faq"
       }
     ]
   },
   faq: {
-    says: ["Our FAQ is located at the top of the page!"],
+    says: ["Our FAQ is located at the top of the page!", "If you have any more questions, you can type them below."],
     reply: [
       {
-        question: "Start Over?",
-        answer: "ice"
+        question: "What is Buddy Bot?",
+        answer: "about"
       }
     ]
+  },
+  yes: {
+    says: ["Wonderful! I'm glad I could help."],
+    reply: [
+      {
+        question: "I have another question",
+        answer: "startOver"
+      }
+    ] 
+  },
+  no: {
+    says: ["I'm sorry I couldn't find the right answer for you."],
+    reply: [
+      {
+        question: "I would like to try again",
+        answer: "startOver"
+      }
+    ] 
+  },
+  startOver: {
+    says: ["Enter your question in the chat box below."]
   }
 }
 
