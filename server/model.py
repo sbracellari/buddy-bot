@@ -2,12 +2,14 @@ import tensorflow as tf
 import tensorflow_hub as hub
 from transformers import BertTokenizer
 
-#This model is a pretrained model made by see--
-#Source code is provided here: https://github.com/see--/natural-question-answering
-tokenizer = BertTokenizer.from_pretrained('bert-large-uncased-whole-word-masking-finetuned-squad')
-model = hub.load("https://tfhub.dev/see--/bert-uncased-tf2-qa/1")
+def initModel():
+    #This model is a pretrained model made by see--
+    #Source code is provided here: https://github.com/see--/natural-question-answering
+    tokenizer = BertTokenizer.from_pretrained('bert-large-uncased-whole-word-masking-finetuned-squad')
+    model = hub.load("https://tfhub.dev/see--/bert-uncased-tf2-qa/1")
+    return tokenizer, model
 
-def computeAnswer(question, context):
+def computeAnswer(question, context, tokenizer, model):
     inc = 1
     dec = 1
     # Tokenizes the question and context inputs
