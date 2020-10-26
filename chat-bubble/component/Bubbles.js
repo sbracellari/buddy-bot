@@ -1,21 +1,22 @@
 // fetch request
-function get_response(question){
-  const is_demo = true
+async function get_response(question) {
+  const is_demo = false
   
   if(is_demo) {
     return 'Use margin : auto'
   }
 
   try {
-    const response = fetch('/buddy-bot/v1/response', {
+    const response = await fetch('http://localhost:5000/buddy-bot/v1/response', {
       method: 'POST',
       headers: {
-        Accept: 'applicaton/json'
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(question)
+      body: JSON.stringify({ question: question })
     })    
 
-    const data = response.json()
+    const data = await response.json()
     return data 
   } catch (err) {
     return err

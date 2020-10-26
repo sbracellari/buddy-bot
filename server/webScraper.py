@@ -2,6 +2,7 @@
 #Will return the context from GeeksforGeeks for the user's question
 import requests
 from bs4 import BeautifulSoup
+from flask import jsonify
 
 def stackOverflow(URL):
   page = requests.get(URL)
@@ -33,23 +34,25 @@ def w3Schools(URL):
   
 
 def webScraperFunc(question):
-  try: 
-      from googlesearch import search 
-  except ImportError:  
-      print("No module named 'google' found") 
-  site = "geeksforgeeks.org"
+  response = jsonify({'response': 'she my lil boo thang'})
+  return response
+  # try: 
+  #     from googlesearch import search 
+  # except ImportError:  
+  #     print("No module named 'google' found") 
+  # site = "geeksforgeeks.org"
 
-  # to search
-  query = question + " site:" + site 
+  # # to search
+  # query = question + " site:" + site 
 
-  # map the inputs to the function blocks
-  options = {'geeksforgeeks.org' : getArticleTag,
-            'stackoverflow.com' : stackOverflow,
-             'docs.oracle.com' : getArticleTag,
-             'docs.python.org' : docsPython,
-             'towardsdatascience.com' : getArticleTag,
-             'w3schools.com' : w3Schools,
-  }
+  # # map the inputs to the function blocks
+  # options = {'geeksforgeeks.org' : getArticleTag,
+  #           'stackoverflow.com' : stackOverflow,
+  #            'docs.oracle.com' : getArticleTag,
+  #            'docs.python.org' : docsPython,
+  #            'towardsdatascience.com' : getArticleTag,
+  #            'w3schools.com' : w3Schools,
+  # }
   
-  for j in search(query, tld="co.in", num=1, stop=1, pause=2): 
-      return options[site](j)
+  # for j in search(query, tld="co.in", num=1, stop=1, pause=2): 
+  #     return options[site](j)

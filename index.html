@@ -55,50 +55,53 @@ var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow",
   // this function does no natural language processing
   // this is where you may want to connect this script to NLC backend.
   inputCallbackFn: function(o) {
-    const response =  get_response(o.input) // fetch response from backend
+    get_response(o.input)
+      .then(data => {
+        let response = data.response
 
-    // do this if answer not found
-    var miss = function() {
-      chatWindow.talk(
-        {
-          "i-dont-get-it": {
-            says: [
-              "I cannot answer that question currently, hopefully I can reply soon!"
-            ],
-            reply:[{
-              question: "Start Over",
-              answer: "ice"
-            }]
-          }
-        },
-        "i-dont-get-it"
-      )
-    }
-
-    // do this if answer found
-    var match = function() {
-      chatWindow.talk(
-        {
-          "i-get-it": {
-            says: [response, "Was that helpful?"],
-            reply:[
-              {
-                question: "Yes",
-                answer: "yes"
-              }, 
-              {
-                question: "No",
-                answer: "no"
+        // do this if answer not found
+        var miss = function() {
+          chatWindow.talk(
+            {
+              "i-dont-get-it": {
+                says: [
+                  "I cannot answer that question currently, hopefully I can reply soon!"
+                ],
+                reply:[{
+                  question: "Start Over",
+                  answer: "ice"
+                }]
               }
-            ]
-          }
-        },
-        "i-get-it"
-      )
-    }
+            },
+            "i-dont-get-it"
+          )
+        }
 
-    // if no answer is found, an empty string will be returned
-    response === '' ? miss() : match()
+        // do this if answer found
+        var match = function() {
+          chatWindow.talk(
+            {
+              "i-get-it": {
+                says: [response, "Was that helpful?"],
+                reply:[
+                  {
+                    question: "Yes",
+                    answer: "yes"
+                  }, 
+                  {
+                    question: "No",
+                    answer: "no"
+                  }
+                ]
+              }
+            },
+            "i-get-it"
+          )
+        }
+
+        // if no answer is found, an empty string will be returned
+        response === '' ? miss() : match()
+      })   
   }
 }) // done setting up chat-bubble
 
