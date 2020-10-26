@@ -3,6 +3,9 @@ from requests import get
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from webScraper import webScraperFunc
+from model import initModel, computeAnswer
+
+params = []
 
 app = Flask(__name__)
 CORS(app)
@@ -14,8 +17,13 @@ def health_check():
 @app.route('/buddy-bot/v1/response', methods=['POST'])
 def response():
     question = request.json.get('question')
-    response = webScraperFunc(question)
+    context = webScraperFunc(question)
+    answer = computeAnswer(question, context, params[0], params[1])
+    if answer == '[SEP]':
+        answer = ''
+    response = jsonify({ 'response': answer })
     return response
 
 if __name__ == '__main__':
+    params = initModel()
     app.run()
