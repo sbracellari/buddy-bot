@@ -34,7 +34,7 @@ def w3Schools(URL):
   
 
 def webScraperFunc(question):
-  response = jsonify({'response': 'she my lil boo thang'})
+  response = jsonify({'response': 'use margin : auto'})
   return response
   # try: 
   #     from googlesearch import search 

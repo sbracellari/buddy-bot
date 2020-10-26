@@ -15,11 +15,6 @@ def health_check():
 def response():
     question = request.json.get('question')
     response = webScraperFunc(question)
-    # response = mock_response(question)
-    return response
-
-def mock_response(question):
-    response = jsonify({'response': 'she my lil boo thang'})
     return response
 
 if __name__ == '__main__':
