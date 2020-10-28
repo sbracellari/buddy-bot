@@ -10,8 +10,8 @@ def initModel():
     return tokenizer, model
 
 def computeAnswer(question, context, tokenizer, model):
-    inc = 1
-    dec = 1
+    startPoint = 1
+    endPoint = 1
     # Tokenizes the question and context inputs
     question_tokens = tokenizer.tokenize(question)
     context_tokens = tokenizer.tokenize(context)
@@ -24,10 +24,16 @@ def computeAnswer(question, context, tokenizer, model):
     outputs = model([input_word_ids, input_mask, input_type_ids])
     # using `[1:]` will enforce an answer. `outputs[0][0][0]` is the ignored '[CLS]' token logit
     #From the output, we gather the tokens for the start and end of the short answer
-    short_start = tf.argmax(outputs[0][0][1:]) + dec    
-    short_end = tf.argmax(outputs[1][0][1:]) + inc
+    short_start = tf.argmax(outputs[0][0][1:]) + startPoint    
+    short_end = tf.argmax(outputs[1][0][1:]) + endPoint
+
     answer_tokens = tokens[short_start: short_end + 1]
     #We then convert the tokens back to strings and provide the question and the answer.
     answer = tokenizer.convert_tokens_to_string(answer_tokens)
 
+    if answer == question[:-1].lower() or answer == question[:-1].lower() + ' ?':
+        answer = ''
+  
     return answer
+
+    

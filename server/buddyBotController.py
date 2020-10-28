@@ -17,11 +17,16 @@ def health_check():
 @app.route('/buddy-bot/v1/response', methods=['POST'])
 def response():
     question = request.json.get('question')
-    context = webScraperFunc(question)
-    answer = computeAnswer(question, context, params[0], params[1])
-    if answer == '[SEP]':
+    context, url = webScraperFunc(question)
+    answer = computeAnswer(question, f'''{context}''', params[0], params[1])
+
+    if '[SEP]' in answer:
         answer = ''
-    response = jsonify({ 'response': answer })
+    response = jsonify(
+        { 'response': answer }#,
+        #{ 'url': url }
+    )
+
     return response
 
 if __name__ == '__main__':
