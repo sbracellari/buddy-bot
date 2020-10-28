@@ -40,9 +40,6 @@
 <!-- container element for chat window -->
 <div id="buddy-bot"></div>
 
-<!-- import the JavaScript file -->
-<script src="./chat-bubble/component/Bubbles.js"></script>
- 
 <script>
 // initialize by constructing a named function...
 // ...and add text processing plugin:
@@ -55,109 +52,147 @@ var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow",
   // this function does no natural language processing
   // this is where you may want to connect this script to NLC backend.
   inputCallbackFn: function(o) {
-    get_response(o.input)
-      .then(data => {
-        let response = data.response
-
-        // do this if answer not found
-        var miss = function() {
-          chatWindow.talk(
-            {
-              "i-dont-get-it": {
-                says: [
-                  "I cannot answer that question currently, hopefully I can reply soon!"
-                ],
-                reply:[{
-                  question: "Start Over",
-                  answer: "ice"
-                }]
-              }
+    // do this if programming answer not found
+    var miss = function() {
+      chatWindow.talk(
+        {
+          "i-dont-get-it": {
+            says: [
+              "I cannot answer that question currently, hopefully I can reply soon!"
+            ],
+            reply:[{
+              question: "I have a programming question",
+              answer: "programming"
             },
-            "i-dont-get-it"
-          )
-        }
-
-        // do this if answer found
-        var match = function() {
-          chatWindow.talk(
             {
-              "i-get-it": {
-                says: [response, "Was that helpful?"],
-                reply:[
-                  {
-                    question: "Yes",
-                    answer: "yes"
-                  }, 
-                  {
-                    question: "No",
-                    answer: "no"
-                  }
-                ]
-              }
-            },
-            "i-get-it"
-          )
-        }
+              question: "I just want to chat",
+              answer: "chat"
+            }]
+          }
+        },
+        "i-dont-get-it"
+      )
+    }
 
-        // if no answer is found, an empty string will be returned
-        response === '' ? miss() : match()
+    // do this if programming answer found
+    var match = function(response) {
+      chatWindow.talk(
+        {
+          "i-get-it": {
+            says: [
+              response, 
+              "Was that helpful?"
+            ],
+            reply:[
+              {
+                question: "Yes",
+                answer: "yes"
+              }, 
+              {
+                question: "No",
+                answer: "no"
+              }
+            ]
+          }
+        },
+        "i-get-it"
+      )
+    }
+
+    // do this for chatting purposes
+    var chat = function(response) {
+      chatWindow.talk(
+        {
+          "i-get-it": {
+            says: [response],
+            reply:[{
+              question: "I have a programming question",
+              answer: "programming"
+            }]
+          }
+        },
+        "i-get-it"
+      )
+    }
+
+    reply = get_reply()
+
+    reply === 'programming' ? (
+      get_response(o.input)
+        .then(data => {
+          let response = data.response
+
+          // if no answer is found, an empty string will be returned
+          response === '' ? miss() : match(response)
       })   
+    ) : (
+      get_chat(o.input)
+        .then(data => {
+          let response = data.response
+          chat(response)
+      })   
+    )
   }
 }) // done setting up chat-bubble
 
 // conversation object
 var convo = {
   ice: {
-    says: ["Hello! Welcome to Buddy Bot.", "Please click one of the following replies, or chat below."],
+    says: [
+      "Hello! Welcome to Buddy Bot - A Programmer's Best Buddy.", 
+      "I'm an interactive chatbot designed to help you with all of your programming needs.", 
+      "If you have a programming question, please type it below. Or, if you just want to chat with me, click on the 'I just want to chat' option.",
+    ],
     reply: [
       {
-        question: "What is Buddy Bot?",
-        answer: "about"
-      },
-      {
-        question: "Where is your FAQ?",
-        answer: "faq"
+        question: "I just want to chat",
+        answer: "chat"
       }
     ]
   },
-  about: {
-    says: ["Buddy Bot is a chatbot designed to answer all of your programming needs.", "Please type your question below, and I'll be sure to answer."],
+  chat: {
+    says: [
+      "Great! I'm always happy to talk.", 
+      "Type whatever you'd like in the chat box below, or, if you have a programming question, you can click the 'I have a programming question' option."
+    ],
     reply: [
       {
-        question: "Where is your FAQ?",
-        answer: "faq"
+        question: "I have a programming question",
+        answer: "programming"
       }
     ]
   },
-  faq: {
-    says: ["Our FAQ is located at the top of the page!", "If you have any more questions, you can type them below."],
+  programming: {
+    says: ["Type your question in the chat box below, and I'll be happy to answer."],
     reply: [
       {
-        question: "What is Buddy Bot?",
-        answer: "about"
+        question: "I just want to chat",
+        answer: "chat"
       }
     ]
   },
   yes: {
-    says: ["Wonderful! I'm glad I could help."],
+    says: [
+      "Wonderful! I'm glad I could help.",
+      "You can type another programming question below, or click the 'I just want to chat' option if you'd like to chat."
+    ],
     reply: [
       {
-        question: "I have another question",
-        answer: "startOver"
+        question: "I just want to chat",
+        answer: "chat"
       }
     ] 
   },
   no: {
-    says: ["I'm sorry I couldn't find the right answer for you."],
+    says: [
+      "I'm sorry I couldn't find the right answer for you. You can either try to ask again, ask a different question, or click the 'I just want to chat' option if you would just like to chat."
+    ],
     reply: [
       {
-        question: "I would like to try again",
-        answer: "startOver"
+        question: "I just want to chat",
+        answer: "chat"
       }
     ] 
-  },
-  startOver: {
-    says: ["Enter your question in the chat box below."]
   }
 }
 

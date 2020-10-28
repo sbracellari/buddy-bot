@@ -24,6 +24,14 @@ def response():
     response = jsonify({ 'response': answer })
     return response
 
+@app.route('/buddy-bot/v1/chat', methods=['POST'])
+def chat():
+    # this is where we would call the chatter bot method
+    # for now, we just return a mock response
+    chat = 'Good morning!'
+    response = jsonify({ 'response': chat })
+    return response
+
 if __name__ == '__main__':
     params = initModel()
     app.run()
