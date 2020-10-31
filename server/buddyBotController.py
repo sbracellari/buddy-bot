@@ -4,6 +4,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from webScraper import webScraperFunc
 from model import initModel, computeAnswer
+from chatting import initChat, botResponse
 
 params = []
 
@@ -26,12 +27,12 @@ def response():
 
 @app.route('/buddy-bot/v1/chat', methods=['POST'])
 def chat():
-    # this is where we would call the chatter bot method
-    # for now, we just return a mock response
-    chat = 'Good morning!'
+    user_input = request.json.get('sentence')
+    chat = str(botResponse(user_input, chatbot[0], chatbot[1]))
     response = jsonify({ 'response': chat })
     return response
 
 if __name__ == '__main__':
     params = initModel()
+    chatbot = initChat()
     app.run()
