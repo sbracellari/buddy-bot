@@ -9,7 +9,7 @@ def initChat():
     bot = ChatBot(
     'BuddyBot',
     storage_adapter='chatterbot.storage.SQLStorageAdapter',
-    database_uri='mysql+mysqldb://admin:dreamteam1234@buddybot.c2ao7w5qbjh5.us-east-2.rds.amazonaws.com:3306/test',
+    database_uri='mysql+mysqldb://admin:dreamteam1234@buddybot.c2ao7w5qbjh5.us-east-2.rds.amazonaws.com:3306/chat_training',
     logic_adapters=[
         {
             'import_path': 'chatterbot.logic.BestMatch',
