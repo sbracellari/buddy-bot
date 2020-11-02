@@ -1,9 +1,9 @@
-// fetch request
+// fetch requests
 async function get_response(question) {
   const is_demo = false
   
   if(is_demo) {
-    return 'Use margin : auto'
+    return { response: 'Use margin : auto' }
   }
 
   try {
@@ -21,6 +21,35 @@ async function get_response(question) {
   } catch (err) {
     return err
   }
+}
+
+async function get_chat(sentence) {
+  const is_demo = false
+  
+  if(is_demo) {
+    return { response: 'Good morning!' }
+  }
+
+  try {
+    const response = await fetch('http://localhost:5000/buddy-bot/v1/chat', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ sentence: sentence })
+    })    
+
+    const data = await response.json()
+    return data 
+  } catch (err) {
+    return err
+  }
+}
+
+let reply = 'programming'
+var get_reply = function() {
+  return reply
 }
 
 // core function
@@ -67,7 +96,6 @@ function Bubbles(container, self, options) {
     // limit number of saves
     if (interactionsHistory.length > recallInteractions)
       interactionsHistory.shift() // removes the oldest (first) save to make space
-
     // do not memorize buttons; only user input gets memorized:
     if (
       // `bubble-button` class name signals that it's a button
@@ -201,6 +229,12 @@ function Bubbles(container, self, options) {
         '<span class="bubble-button reply-pick">' + content + "</span>",
         "reply reply-pick"
       )
+    }
+    // we can hard code these values since they're hardcoded options in the conversation itself
+    if (content === 'I just want to chat') {
+      reply = 'chatting'
+    } else if (content === 'I have a programming question') {
+      reply = 'programming'
     }
   }
 
