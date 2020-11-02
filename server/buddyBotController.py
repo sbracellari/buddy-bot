@@ -42,11 +42,11 @@ def response():
 
     row_ID = str(row_ID)[1]
 
-    response = jsonify(
-        { 'response': answer },
-        { 'id': row_ID }#,
-        #{ 'url': url }
-    )
+    response = jsonify({
+       'response': answer,
+       'id': row_ID,
+       'url': url
+    })
 
     return response
 

@@ -75,12 +75,13 @@ var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow",
     }
 
     // do this if programming answer found
-    var match = function(response) {
+    var match = function(response, url) {
       chatWindow.talk(
         {
           "i-get-it": {
             says: [
               response, 
+              "This is where I found your answer: " + url,
               "Was that helpful?"
             ],
             reply:[
@@ -120,10 +121,11 @@ var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow",
     reply === 'programming' ? (
       get_response(o.input)
         .then(data => {
-          let response = data[0].response
+          let response = data.response
+          let url = data.url
 
           // if no answer is found, an empty string will be returned
-          response === '' ? miss() : match(response)
+          response === '' ? miss() : match(response, url)
       })   
     ) : (
       get_chat(o.input)

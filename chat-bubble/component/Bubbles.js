@@ -6,7 +6,10 @@ async function get_response(question) {
   const is_demo = false
   
   if(is_demo) {
-    return { response: 'Use margin : auto' }
+    return { 
+      response: 'Use margin : auto',
+      url: 'https://www.geeksforgeeks.org/'
+    }
   }
 
   try {
@@ -20,7 +23,7 @@ async function get_response(question) {
     })    
 
     const data = await response.json()
-    row_id = data[1].id
+    row_id = data.id
     return data 
   } catch (err) {
     return err
