@@ -1,9 +1,15 @@
 // fetch requests
+
+let row_id = null
+
 async function get_response(question) {
   const is_demo = false
   
   if(is_demo) {
-    return { response: 'Use margin : auto' }
+    return { 
+      response: 'Use margin : auto',
+      url: 'https://www.geeksforgeeks.org/'
+    }
   }
 
   try {
@@ -17,6 +23,7 @@ async function get_response(question) {
     })    
 
     const data = await response.json()
+    row_id = data.id
     return data 
   } catch (err) {
     return err
@@ -42,6 +49,32 @@ async function get_chat(sentence) {
 
     const data = await response.json()
     return data 
+  } catch (err) {
+    return err
+  }
+}
+
+async function send_feedback(success, id) {
+  const is_demo = false
+  
+  if(is_demo) {
+    return console.log('success: ' + success + '\nid: ' + id)
+  }
+
+  try {
+    const response = await fetch('http://localhost:5000/buddy-bot/v1/success', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 
+        success: success,
+        id: id
+      })
+    })    
+
+    return response.ok 
   } catch (err) {
     return err
   }
@@ -235,6 +268,14 @@ function Bubbles(container, self, options) {
       reply = 'chatting'
     } else if (content === 'I have a programming question') {
       reply = 'programming'
+    } 
+
+    if (content === 'Yes') {
+      success = 1
+      send_feedback(success, row_id)
+    } else if (content === 'No') {
+      success = 0
+      send_feedback(success, row_id)
     }
   }
 
