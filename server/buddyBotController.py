@@ -37,6 +37,12 @@ def chat():
     response = jsonify({ 'response': chat })
     return response
 
+@app.route('/buddy-bot/v1/success', methods=['POST'])
+def success():
+    success= request.json.get('success')
+    row_id = requst.json.get('id')
+    # call insert function here
+
 if __name__ == '__main__':
     params = initModel()
     chatbot = initChat()
