@@ -19,7 +19,6 @@ connection.autocommit = True
 
 params = []
 
-
 app = Flask(__name__)
 CORS(app)
 
@@ -42,7 +41,7 @@ def response():
 
     for result in cur.stored_results():
         row_ID = result.fetchone()
-
+    
     response = jsonify(
         { 'response': answer },
         { 'id': row_ID }#,
@@ -64,6 +63,7 @@ def success():
     row_id = request.json.get('id')
 
     cur.callproc('feedback', [row_id, success])
+    return True
 
 if __name__ == '__main__':
     params = initModel()

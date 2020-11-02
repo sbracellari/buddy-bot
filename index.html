@@ -120,7 +120,7 @@ var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow",
     reply === 'programming' ? (
       get_response(o.input)
         .then(data => {
-          let response = data.response
+          let response = data[0].response
 
           // if no answer is found, an empty string will be returned
           response === '' ? miss() : match(response)

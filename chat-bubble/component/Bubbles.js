@@ -1,6 +1,9 @@
 // fetch requests
+
+let row_id = null
+
 async function get_response(question) {
-  const is_demo = true
+  const is_demo = false
   
   if(is_demo) {
     return { response: 'Use margin : auto' }
@@ -17,6 +20,7 @@ async function get_response(question) {
     })    
 
     const data = await response.json()
+    row_id = data[1].id
     return data 
   } catch (err) {
     return err
@@ -24,7 +28,7 @@ async function get_response(question) {
 }
 
 async function get_chat(sentence) {
-  const is_demo = true
+  const is_demo = false
   
   if(is_demo) {
     return { response: 'Good morning!' }
@@ -48,7 +52,7 @@ async function get_chat(sentence) {
 }
 
 async function send_feedback(success, id) {
-  const is_demo = true
+  const is_demo = false
   
   if(is_demo) {
     return console.log('success: ' + success + '\nid: ' + id)
@@ -265,10 +269,10 @@ function Bubbles(container, self, options) {
 
     if (content === 'Yes') {
       success = 1
-      send_feedback(success, 2)
+      send_feedback(success, row_id)
     } else if (content === 'No') {
       success = 0
-      send_feedback(success, 2)
+      send_feedback(success, row_id)
     }
   }
 
