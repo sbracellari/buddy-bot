@@ -35,13 +35,13 @@ def response():
     if '[SEP]' in answer:
         answer = ''
 
-    cur.callproc('programmingQuestion', [question, answer])
-
-    row_ID = None
+    cur.callproc('programmingQ', [question, answer])
 
     for result in cur.stored_results():
         row_ID = result.fetchone()
-    
+
+    row_ID = str(row_ID)[1]
+
     response = jsonify(
         { 'response': answer },
         { 'id': row_ID }#,
@@ -60,10 +60,10 @@ def chat():
 @app.route('/buddy-bot/v1/success', methods=['POST'])
 def success():
     success= request.json.get('success')
-    row_id = request.json.get('id')
+    row_id = int(request.json.get('id'))
 
     cur.callproc('feedback', [row_id, success])
-    return True
+    return 'True'
 
 if __name__ == '__main__':
     params = initModel()
