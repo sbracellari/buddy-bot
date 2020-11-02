@@ -4,6 +4,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from webScraper import webScraperFunc
 from model import initModel, computeAnswer
+from chatting import initChat, botResponse
 
 params = []
 
@@ -24,6 +25,14 @@ def response():
     response = jsonify({ 'response': answer })
     return response
 
+@app.route('/buddy-bot/v1/chat', methods=['POST'])
+def chat():
+    user_input = request.json.get('sentence')
+    chat = str(botResponse(user_input, chatbot[0], chatbot[1]))
+    response = jsonify({ 'response': chat })
+    return response
+
 if __name__ == '__main__':
     params = initModel()
+    chatbot = initChat()
     app.run()
