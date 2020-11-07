@@ -26,12 +26,48 @@
 		  margin: 0;
 		  width: calc(100% - 30px);
     }
+    .topnav {
+  overflow: hidden;
+  background-color: #7cb5c0;
+}
+
+.topnav a {
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display:flex;
+  justify-content: center;
+}
+
+.topnav a:hover {
+  background-color: #bbebf0;
+  color:#7cb5c0;
+  font-size: 24px;
+}
+
+.topnav a.home {
+  background-color: #7cb5c0 ;
+  color: #7cb5c0;
+  font-size: 24px;
+}
 	</style>
 </head>
 <body>
+  <div class="topnav">
+    <a class="home" href="index.html">Home</a>
+  </div>
+  
+  <div style="color:#7cb5c0;font-size: 24px;text-align: center;">
+    <h2>BUDDY BOT - A Programmer's Best Friend</h2>
+  </div>
 <h1> 
-    <img src="https://wallpaperaccess.com/full/557726.png" alt="buddy bot image"style="width:754px;height:378px;"> 
+    <img src="https://wallpaperaccess.com/full/557726.png" alt="buddy bot image"style="width:754px;height:378px;" usemap="#evil"> 
 </h1>
+<map name="evil">
+  <area shape="rect" coords="34,44,270,350" alt="buddybot" href="index.html">
+</map>
 
 <!----ASHLEY ADD AN HTML IMAGE MAP TO THE TIP OF BUDDY BOT to turn him 'evil' !!-->
 <!---- the script -->
