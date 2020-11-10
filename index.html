@@ -112,12 +112,15 @@ var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow",
 
     // do this if programming answer found
     var match = function(response, url) {
+
+      const link = `<a href=${url} target='_blank' rel='noopener noreferrer'>${url}</a>`
+
       chatWindow.talk(
         {
           "i-get-it": {
             says: [
               response, 
-              "This is where I found your answer: " + url,
+              "This is where I found your answer: " + link,
               "Was that helpful?"
             ],
             reply:[
