@@ -8,17 +8,7 @@ from webScraper import webScraperFunc
 from model import initModel, computeAnswer
 from chatting import initChat, botResponse
 
-try:
-    connection = mysql.connector.connect(user='admin', password='dreamteam1234', host='buddybot.c2ao7w5qbjh5.us-east-2.rds.amazonaws.com', database='buddybot')
-except mysql.connector.Error as err:
-    print(err)
-
-cur = connection.cursor(dictionary=True)
-
-connection.autocommit = True
-
 params = initModel()
-
 chatbot = initChat()
 
 app = Flask(__name__)
@@ -37,12 +27,18 @@ def response():
     if '[SEP]' in answer:
         answer = ''
 
+    try:
+        connection = mysql.connector.connect(user='admin', password='dreamteam1234', host='buddybot.c2ao7w5qbjh5.us-east-2.rds.amazonaws.com', database='buddybot')
+    except mysql.connector.Error as err:
+        print(err)
+
+    cur = connection.cursor(dictionary=True)
+    connection.autocommit = True
+
     cur.callproc('programmingQ', [question, answer])
 
     for result in cur.stored_results():
-        row_ID = result.fetchone()
-
-    row_ID = str(row_ID)[1]
+        row_ID = result.fetchone()[0]
 
     response = jsonify({
        'response': answer,
@@ -62,7 +58,15 @@ def chat():
 @app.route('/buddy-bot/v1/success', methods=['POST'])
 def success():
     success= request.json.get('success')
-    row_id = int(request.json.get('id'))
+    row_id = request.json.get('id')
+
+    try:
+        connection = mysql.connector.connect(user='admin', password='dreamteam1234', host='buddybot.c2ao7w5qbjh5.us-east-2.rds.amazonaws.com', database='buddybot')
+    except mysql.connector.Error as err:
+        print(err)
+
+    cur = connection.cursor(dictionary=True)
+    connection.autocommit = True
 
     cur.callproc('feedback', [row_id, success])
     return 'True'
