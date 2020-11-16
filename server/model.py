@@ -15,10 +15,14 @@ def computeAnswer(question, context, tokenizer, model):
     # Tokenizes the question and context inputs
     question_tokens = tokenizer.tokenize(question)
     context_tokens = tokenizer.tokenize(context)
-    tokens = ['[CLS]'] + question_tokens + ['[SEP]'] + context_tokens + ['[SEP]']
+    tokens = ['[CLS]'] + question_tokens + ['[SEP]'] + context_tokens
+    if len(tokens) > 511:
+        tokens = tokens[:511] + ['[SEP]']
+    else:
+        tokens = tokens + ['[SEP]']
     input_word_ids = tokenizer.convert_tokens_to_ids(tokens)
     input_mask = [1] * len(input_word_ids)
-    input_type_ids = [0] * (1 + len(question_tokens) + 1) + [1] * (len(context_tokens) + 1)
+    input_type_ids = [0] * (1 + len(question_tokens) + 1) + [1] * (len(tokens) - len(question_tokens) - 2)
     #Converts the tokenize inputs to TensorFlow Objects
     input_word_ids, input_mask, input_type_ids = map(lambda t: tf.expand_dims(tf.convert_to_tensor(t, dtype=tf.int32), 0), (input_word_ids, input_mask, input_type_ids))
     outputs = model([input_word_ids, input_mask, input_type_ids])

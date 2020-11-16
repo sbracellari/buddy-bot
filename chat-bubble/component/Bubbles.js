@@ -13,7 +13,7 @@ async function get_response(question) {
   }
 
   try {
-    const response = await fetch('http://68.32.154.56:5000/buddy-bot/v1/response', {
+    const response = await fetch('https://www.shortech.tech/buddy-bot/v1/response', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -38,7 +38,7 @@ async function get_chat(sentence) {
   }
 
   try {
-    const response = await fetch('http://68.32.154.56:5000/buddy-bot/v1/chat', {
+    const response = await fetch('https://www.shortech.tech/buddy-bot/v1/chat', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -62,7 +62,7 @@ async function send_feedback(success, id) {
   }
 
   try {
-    const response = await fetch('http://68.32.154.56:5000/buddy-bot/v1/success', {
+    const response = await fetch('https://www.shortech.tech/buddy-bot/v1/success', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

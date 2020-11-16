@@ -17,7 +17,9 @@ cur = connection.cursor(dictionary=True)
 
 connection.autocommit = True
 
-params = []
+params = initModel()
+
+chatbot = initChat()
 
 app = Flask(__name__)
 CORS(app)
@@ -66,6 +68,4 @@ def success():
     return 'True'
 
 if __name__ == '__main__':
-    params = initModel()
-    chatbot = initChat()
-    app.run(host= '0.0.0.0')
+    app.run(host='0.0.0.0')
