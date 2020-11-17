@@ -154,6 +154,7 @@ function Bubbles(container, self, options) {
   // set up the stage
   container.classList.add("bubble-container")
   var bubbleWrap = document.createElement("div")
+  bubbleWrap.id = "chat-field"
   bubbleWrap.className = "bubble-wrap"
   container.appendChild(bubbleWrap)
 
@@ -192,8 +193,6 @@ function Bubbles(container, self, options) {
       }
     })
     container.appendChild(inputWrap)
-    bubbleWrap.style.paddingBottom = "100px"
-    inputText.focus()
   }
   inputCallbackFn ? this.typeInput(inputCallbackFn) : false
 
@@ -374,15 +373,16 @@ function Bubbles(container, self, options) {
       !iceBreaker && interactionsSaveCommit() // save point
 
       // animate scrolling
-      containerHeight = container.offsetHeight
-      scrollDifference = bubbleWrap.scrollHeight - bubbleWrap.scrollTop
+      var chatField = document.getElementById('chat-field')
+      scrollDifference = chatField.scrollHeight
       scrollHop = scrollDifference / 200
+      
       var scrollBubbles = function() {
         for (var i = 1; i <= scrollDifference / scrollHop; i++) {
           ;(function() {
             setTimeout(function() {
-              bubbleWrap.scrollHeight - bubbleWrap.scrollTop > containerHeight
-                ? (bubbleWrap.scrollTop = bubbleWrap.scrollTop + scrollHop)
+              chatField.scrollHeight - chatField.scrollTop > 0
+                ? (chatField.scrollTop = chatField.scrollTop + scrollHop)
                 : false
             }, i * 5)
           })()

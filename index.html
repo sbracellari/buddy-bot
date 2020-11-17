@@ -12,16 +12,9 @@
 	  body {
       background: #adebeb;
     }
-    .element-style{
-      padding-bottom: 100px;
-      padding-top: 100px;
-    }
     .bubble-wrap, .bubble-container{
       background: #d6f5f5;
     }
-	  .bubble-container {
-      height: 100vh;
-	  }
 	  .bubble-container .input-wrap textarea {
 		  margin: 0;
 		  width: calc(100% - 30px);
@@ -48,26 +41,32 @@
 }
 
 .topnav a.home {
-  background-color: #7cb5c0 ;
+  background-color: #7cb5c0;
   color: #7cb5c0;
   font-size: 24px;
 }
 	</style>
 </head>
 <body>
+  <div style="height: auto;">
   <div class="topnav">
     <a class="home" href="index.html">Home</a>
   </div>
-  
   <div style="color:#7cb5c0;font-size: 24px;text-align: center;">
     <h2>BUDDY BOT - A Programmer's Best Friend</h2>
   </div>
-<h1> 
-    <img src="https://wallpaperaccess.com/full/557726.png" alt="buddy bot image"style="width:754px;height:378px;" usemap="#evil"> 
-</h1>
-<map name="evil">
-  <area shape="rect" coords="34,44,270,350" alt="buddybot" href="index.html">
-</map>
+  <div style='display: flex; justify-content: center'> 
+    <img 
+      src="https://wallpaperaccess.com/full/557726.png" 
+      alt="buddy bot image"
+      style='height: 375px;'
+      usemap="#evil"
+    > 
+  </div>
+  <map name="evil">
+    <area shape="rect" coords="34,44,270,350" alt="buddybot" href="index.html">
+  </map>
+  </div>
 
 <!----ASHLEY ADD AN HTML IMAGE MAP TO THE TIP OF BUDDY BOT to turn him 'evil' !!-->
 <!---- the script -->
@@ -112,18 +111,25 @@ var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow",
 
     // do this if programming answer found
     var match = function(response, url) {
-
-      const link = `<a href=${url} target='_blank' rel='noopener noreferrer'>${url}</a>`
-
-      chatWindow.talk(
+      var talk = url === null ? 
         {
-          "i-get-it": {
-            says: [
-              response, 
-              "This is where I found your answer: " + link,
-              "Was that helpful?"
-            ],
-            reply:[
+          says: [response],
+          reply: [
+            {
+              question: "I just want to chat",
+              answer: "chat"
+             }
+          ]
+        }
+      : (
+        link = `<a href=${url} target='_blank' rel='noopener noreferrer'>${url}</a>`,
+        {
+          says: [
+            response,
+            "This is where I found your answer: " + link,
+            "Was that helpful?"
+          ],
+          reply:[
               {
                 question: "Yes",
                 answer: "yes"
@@ -133,7 +139,12 @@ var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow",
                 answer: "no"
               }
             ]
-          }
+        }
+      )
+
+      chatWindow.talk(
+        {
+          "i-get-it": talk
         },
         "i-get-it"
       )
@@ -158,14 +169,23 @@ var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow",
     reply = get_reply()
 
     reply === 'programming' ? (
-      get_response(o.input)
-        .then(data => {
-          let response = data.response
-          let url = data.url
+      question_error = o.input.length > 75,
 
-          // if no answer is found, an empty string will be returned
-          response === '' ? miss() : match(response, url)
-      })   
+      question_error ? (
+          match(
+            "Your question is too long. Please try to limit it to 75 characters.", 
+            null
+          )
+      ) : (
+get_response(o.input)
+          .then(data => {
+            let response = data.response
+            let url = data.url
+
+            // if no answer is found, an empty string will be returned
+            response === '' ? miss() : match(response, url)
+        }) 
+      )
     ) : (
       get_chat(o.input)
         .then(data => {

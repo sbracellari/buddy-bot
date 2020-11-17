@@ -1,13 +1,9 @@
 /* style user input field */
-.bubble-container .input-wrap {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
+.input-wrap {
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
 	color: #2c2c2c;
 }
-.bubble-container .input-wrap textarea {
+.input-wrap textarea {
 	width: calc(100% - 20px);
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
 	color: #2c2c2c;
