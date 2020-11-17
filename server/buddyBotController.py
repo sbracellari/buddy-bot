@@ -27,7 +27,7 @@ def bot_response(question):
     context, url = webScraperFunc(question)
     answer = computeAnswer(question, f'''{context}''', params[0], params[1])
 
-    response = 'Waddaya talkin\' bout?' if '[SEP]' in answer else answer
+    response = 'Waddaya talkin\' bout?' if '[SEP]' in answer or answer is '' else answer
     return response
 
 def chat_response(user_input):
