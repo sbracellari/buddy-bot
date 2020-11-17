@@ -11,8 +11,24 @@ from chatting import initChat, botResponse
 params = initModel()
 chatbot = initChat()
 
+try:
+    connection = mysql.connector.connect(user='admin', password='dreamteam1234', host='buddybot.c2ao7w5qbjh5.us-east-2.rds.amazonaws.com', database='buddybot')
+except mysql.connector.Error as err:
+    print(err)
+
+cur = connection.cursor(dictionary=True)
+connection.autocommit = True
+
 app = Flask(__name__)
 CORS(app)
+app_context = app.app_context()
+
+def bot_response(question):
+    context, url = webScraberFunc(question)
+    answer = computeAnswer(question, f'''{context}''', params[0], params[1])
+
+    response = 'Waddaya talkin\' bout?' if '[SEP]' in answer else answer
+    return response
 
 @app.route('/buddy-bot/v1/health-check', methods=['GET'])
 def health_check():
@@ -21,7 +37,8 @@ def health_check():
 @app.route('/buddy-bot/v1/response', methods=['POST'])
 def response():
     question = request.json.get('question')
-    context, url = webScraperFunc(question)
+
+    context, url = webScraberFunc(question)
     answer = computeAnswer(question, f'''{context}''', params[0], params[1])
 
     if '[SEP]' in answer:
@@ -41,9 +58,9 @@ def response():
         row_ID = result.fetchone()[0]
 
     response = jsonify({
-       'response': answer,
-       'id': row_ID,
-       'url': url
+        'response': answer,
+        'id': row_ID,
+        'url': url
     })
 
     return response
