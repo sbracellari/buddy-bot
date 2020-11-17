@@ -24,7 +24,7 @@ CORS(app)
 app_context = app.app_context()
 
 def bot_response(question):
-    context, url = webScraberFunc(question)
+    context, url = webScraperFunc(question)
     answer = computeAnswer(question, f'''{context}''', params[0], params[1])
 
     response = 'Waddaya talkin\' bout?' if '[SEP]' in answer else answer
@@ -38,7 +38,7 @@ def health_check():
 def response():
     question = request.json.get('question')
 
-    context, url = webScraberFunc(question)
+    context, url = webScraperFunc(question)
     answer = computeAnswer(question, f'''{context}''', params[0], params[1])
 
     if '[SEP]' in answer:
