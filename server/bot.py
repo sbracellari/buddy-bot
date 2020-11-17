@@ -13,7 +13,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.author == client.user or not message.content.startswith("!bb"):
+    if message.author == client.user:
         return
 
     if message.content.startswith("!bb"):
