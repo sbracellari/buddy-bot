@@ -30,6 +30,10 @@ def bot_response(question):
     response = 'Waddaya talkin\' bout?' if '[SEP]' in answer else answer
     return response
 
+def chat_response(user_input):
+    chat = str(botResponse(user_input, chatbot[0], chatbot[1]))
+    return chat
+
 @app.route('/buddy-bot/v1/health-check', methods=['GET'])
 def health_check():
     return 'true'

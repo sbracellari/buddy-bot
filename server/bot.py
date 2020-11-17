@@ -1,7 +1,7 @@
 import os
 import discord
 from dotenv import load_dotenv
-from buddyBotController import bot_response, app_context
+from buddyBotController import bot_response, app_context, chat_response
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -19,6 +19,10 @@ async def on_message(message):
     if message.content.startswith("!bb"):
         with app_context:
             response = bot_response(message.content[3:])
+        await message.channel.send(response)
+    elif message.content.startswith("!cb"):
+        with app_context:
+            response = chat_response(message.content[3:])
         await message.channel.send(response)
 
 client.run(TOKEN)
