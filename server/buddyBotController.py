@@ -11,14 +11,6 @@ from chatting import initChat, botResponse
 params = initModel()
 chatbot = initChat()
 
-try:
-    connection = mysql.connector.connect(user='admin', password='dreamteam1234', host='buddybot.c2ao7w5qbjh5.us-east-2.rds.amazonaws.com', database='buddybot')
-except mysql.connector.Error as err:
-    print(err)
-
-cur = connection.cursor(dictionary=True)
-connection.autocommit = True
-
 app = Flask(__name__)
 CORS(app)
 app_context = app.app_context()
