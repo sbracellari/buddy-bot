@@ -37,7 +37,7 @@ def response():
     context, url = webScraperFunc(question)
     answer = computeAnswer(question, f'''{context}''', params[0], params[1])
 
-    if '[SEP]' in answer:
+    if '[SEP]' in answer or url == '':
         answer = ''
 
     try:
@@ -49,7 +49,7 @@ def response():
     connection.autocommit = True
 
     cur.callproc('programmingQ', [question, answer])
-
+      
     for result in cur.stored_results():
         row_ID = result.fetchone()[0]
 

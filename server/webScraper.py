@@ -64,14 +64,14 @@ def webScraperFunc(question):
       print("No module named 'google' found")
 
   # to search
-  query = question + " site:docs.oracle.com OR site:geeksforgeeks.org OR site:w3schools.com OR site:geeksforgeeks.org OR site:towardsdatascience.com OR site:docs.python.org" 
+  query = question + " site:docs.oracle.com OR site:w3schools.com OR site:geeksforgeeks.org OR site:docs.python.org OR site:stackoverflow.com" 
 
   # map the inputs to the function blocks
   options = {'www.geeksforgeeks.org' : getArticleTag,
             'stackoverflow.com' : stackOverflow,
              'docs.oracle.com' : oracle,
              'docs.python.org' : docsPython,
-             'towardsdatascience.com' : getArticleTag,
+             #'towardsdatascience.com' : getArticleTag,
              'www.w3schools.com' : w3Schools,
   }
   context = ''
