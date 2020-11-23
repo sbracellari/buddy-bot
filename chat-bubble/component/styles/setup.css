@@ -1,23 +1,18 @@
 /* setup container styles */
 .bubble-container {
 	background: #dcdde0;
-	height: 520px;
-	max-width: 750px;
+	height: auto;
+	max-width: 667px;
 	width: 100%;
-	margin: 0 auto;
+	margin: 20px auto;
 	overflow: hidden;
 	position: relative;
 }
 .bubble-wrap {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: -17px;
-	padding: 10px calc(17px + 10px) 30px 10px;
 	overflow-y: scroll;
-	-webkit-overflow-scrolling: touch;
-	-webkit-transform: translate3d(0, 0, 0);
+	height: 45vh;
+	margin-right: -20px;
+	padding: 15px 15px 0px 15px;
 }
 /* optional page styles */
 h1 {
