@@ -76,13 +76,17 @@ def webScraperFunc(question):
   }
   context = ''
   url = ''
-  for j in search(query, tld="co.in", num=1, stop=1, pause=2):
-    #https://stackoverflow.com/questions/44021846/extract-domain-name-from-url-python
-    ext =  tldextract.extract(j)
-    url = j
-    if ext.subdomain != '':
-      context = options[ext.subdomain + '.' + ext.domain + '.' + ext.suffix](j)
-    else:
-      context = options[ext.domain + '.' + ext.suffix](j)
+  try:
+    for j in search(query, tld="co.in", num=1, stop=1, pause=2):
+        #https://stackoverflow.com/questions/44021846/extract-domain-name-from-url-python
+        ext =  tldextract.extract(j)
+        url = j
+        if ext.subdomain != '':
+            context = options[ext.subdomain + '.' + ext.domain + '.' + ext.suffix](j)
+        else:
+            context = options[ext.domain + '.' + ext.suffix](j)
+  except: 
+    context = ''
+    url = None
 
   return context, url
