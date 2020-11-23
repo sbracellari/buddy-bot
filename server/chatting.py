@@ -30,7 +30,8 @@ def initChat():
 
     trainer2.train([
         'Hey',
-        'Hello',
+        'Hello'])
+    trainer2.train([
         'How\'s it going?',
         'It\'s going great!'
     ])
