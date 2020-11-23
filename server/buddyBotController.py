@@ -37,8 +37,12 @@ def response():
     context, url = webScraperFunc(question)
     answer = computeAnswer(question, f'''{context}''', params[0], params[1])
 
-    if '[SEP]' in answer or url == '':
+    bad_answer = '[SEP]' in answer or question.lower() in answer.lower()
+    bad_url = url == None or url == ''
+    
+    if bad_answer == True or bad_url == True:
         answer = ''
+        url = None
 
     try:
         connection = mysql.connector.connect(user='admin', password='dreamteam1234', host='buddybot.c2ao7w5qbjh5.us-east-2.rds.amazonaws.com', database='buddybot')
