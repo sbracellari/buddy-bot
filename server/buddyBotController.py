@@ -67,10 +67,6 @@ def response():
 
 @app.route('/buddy-bot/v1/chat', methods=['POST'])
 def chat():
-    try:
-        connection = mysql.connector.connect(user='admin', password='dreamteam1234', host='buddybot.c2ao7w5qbjh5.us-east-2.rds.amazonaws.com', database='chat_training')
-    except mysql.connector.Error as err:
-        print(err)
     user_input = request.json.get('sentence')
     chat = str(botResponse(user_input, chatbot[0], chatbot[1]))
     response = jsonify({ 'response': chat })
