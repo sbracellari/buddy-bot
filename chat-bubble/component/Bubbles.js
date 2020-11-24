@@ -3,12 +3,13 @@
 let row_id = null
 
 async function get_response(question) {
-  const is_demo = false
+  const is_demo = true
   
   if(is_demo) {
     return { 
       response: 'Use margin : auto',
-      url: 'https://www.geeksforgeeks.org/'
+      url: 'https://www.geeksforgeeks.org/',
+      code: 'stuff\ttab\nnewline'
     }
   }
 
@@ -322,6 +323,7 @@ function Bubbles(container, self, options) {
     bubble.className = "bubble imagine " + (!live ? " history " : "") + reply
     bubbleContent.className = "bubble-content"
     code ? bubbleContent.innerText = say : bubbleContent.innerHTML = say
+    // bubbleContent.innerHTML = say
     bubble.appendChild(bubbleContent)
     bubbleWrap.insertBefore(bubble, bubbleTyping)
     // answer picker styles
