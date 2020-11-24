@@ -178,6 +178,7 @@ function Bubbles(container, self, options) {
           : false
         addBubble(
           '<span class="bubble-button bubble-pick">' + this.value + "</span>",
+          false,
           function() {},
           "reply reply-freeform"
         )
@@ -242,7 +243,7 @@ function Bubbles(container, self, options) {
     orderBubbles(turn.says, function() {
       bubbleTyping.classList.remove("imagine")
       questionsHTML !== ""
-        ? addBubble(questionsHTML, function() {}, "reply")
+        ? addBubble(questionsHTML, false, function() {}, "reply")
         : bubbleTyping.classList.add("imagine")
     })
   }
@@ -301,7 +302,7 @@ function Bubbles(container, self, options) {
     ) {
       ;(function(callback, index) {
         start = function() {
-          addBubble(q[index], callback)
+          addBubble(q[index], true, callback)
         }
       })(start, nextCallback)
     }
@@ -310,7 +311,7 @@ function Bubbles(container, self, options) {
 
   // create a bubble
   var bubbleQueue = false
-  var addBubble = function(say, posted, reply, live) {
+  var addBubble = function(say, code, posted, reply, live) {
     reply = typeof reply !== "undefined" ? reply : ""
     live = typeof live !== "undefined" ? live : true // bubbles that are not "live" are not animated and displayed differently
     var animationTime = live ? this.animationTime : 0
@@ -320,7 +321,7 @@ function Bubbles(container, self, options) {
     var bubbleContent = document.createElement("span")
     bubble.className = "bubble imagine " + (!live ? " history " : "") + reply
     bubbleContent.className = "bubble-content"
-    bubbleContent.innerHTML = say
+    code ? bubbleContent.innerText = say : bubbleContent.innerHTML = say
     bubble.appendChild(bubbleContent)
     bubbleWrap.insertBefore(bubble, bubbleTyping)
     // answer picker styles
@@ -396,6 +397,7 @@ function Bubbles(container, self, options) {
   for (var i = 0; i < interactionsHistory.length; i++) {
     addBubble(
       interactionsHistory[i].say,
+      false,
       function() {},
       interactionsHistory[i].reply,
       false

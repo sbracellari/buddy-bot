@@ -106,7 +106,7 @@ var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow",
     }
 
     // do this if programming answer found
-    var match = function(response, url) {
+    var match = function(response, url) {/*
       var talk = url === null ? 
         {
           says: [response],
@@ -144,7 +144,33 @@ var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow",
         },
         "i-get-it"
       )
+    } else {
+      chatWindow.talk(
+        {
+          "i-get-it": {
+            says: [
+              response, 
+              "This is where I found your answer: " + url,
+              "Was that helpful?"
+            ],
+            reply:[
+              {
+                question: "Yes",
+                answer: "yes"
+              }, 
+              {
+                question: "No",
+                answer: "no"
+              }
+            ]
+          }
+        },
+        "i-get-it"
+      )
+    }*/
     }
+
+    
 
     // do this for chatting purposes
     var chat = function(response) {
