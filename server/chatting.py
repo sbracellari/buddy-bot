@@ -18,22 +18,21 @@ def initChat():
         }
     ])
 
-    trainer = ChatterBotCorpusTrainer(bot)
-    trainer2 = ListTrainer(bot)
+    trainer = ListTrainer(bot)
 
-    trainer.train(
-        "chatterbot.corpus.english.greetings",
-        "chatterbot.corpus.english.conversations",
-        "chatterbot.corpus.english.botprofile",
-        "chatterbot.corpus.english.ai"
-    )
 
-    trainer2.train([
+    trainer.train([
         'Hey',
         'Hello'])
-    trainer2.train([
+
+    trainer.train([
         'How\'s it going?',
         'It\'s going great!'
+    ])
+
+    trainer.train([
+        'How are you doing?',
+        'I am fine.'
     ])
 
     return bot, default_response
