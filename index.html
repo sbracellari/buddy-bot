@@ -110,7 +110,6 @@ var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow",
 
     // do this if programming answer found
     var match = function(response, url) {
-
       var link = `<a href=${url} target='_blank' rel='noopener noreferrer'>${url}</a>`
     
       code === null ? (
@@ -118,7 +117,7 @@ var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow",
           "i-get-it": {
             says: [
               response,
-              "This is where I found your answer: " + htmlObject,
+              "This is where I found your answer: " + link,
               "Was that helpful?"
             ],
             reply:[
@@ -140,7 +139,7 @@ var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow",
           "i-get-it": {     
             says: [
               response,
-              "This is where I found your answer: " + htmlObject,
+              "This is where I found your answer: " + link,
               "Would you like an example code snippet?"
             ],
             reply:[

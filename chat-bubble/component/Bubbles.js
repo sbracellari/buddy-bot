@@ -322,8 +322,12 @@ function Bubbles(container, self, options) {
     var bubbleContent = document.createElement("span")
     bubble.className = "bubble imagine " + (!live ? " history " : "") + reply
     bubbleContent.className = "bubble-content"
-    code ? bubbleContent.innerText = say : bubbleContent.innerHTML = say
-    // bubbleContent.innerHTML = say
+    if(say.includes('This is where I found your answer:')) {
+      bubbleContent.innerHTML = say
+    } else {
+      code ? bubbleContent.innerText = say : bubbleContent.innerHTML = say
+    }
+    
     bubble.appendChild(bubbleContent)
     bubbleWrap.insertBefore(bubble, bubbleTyping)
     // answer picker styles
