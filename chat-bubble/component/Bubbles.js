@@ -3,7 +3,7 @@
 let row_id = null
 
 async function get_response(question) {
-  const is_demo = true
+  const is_demo = false
   
   if(is_demo) {
     return { 
