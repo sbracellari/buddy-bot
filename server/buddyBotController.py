@@ -13,6 +13,18 @@ chatbot = initChat()
 
 app = Flask(__name__)
 CORS(app)
+app_context = app.app_context()
+
+def bot_response(question):
+    context, url = webScraperFunc(question)
+    answer = computeAnswer(question, f'''{context}''', params[0], params[1])
+
+    response = 'Waddaya talkin\' bout?' if '[SEP]' in answer or answer is '' else answer
+    return response
+
+def chat_response(user_input):
+    chat = str(botResponse(user_input, chatbot[0], chatbot[1]))
+    return chat
 
 @app.route('/buddy-bot/v1/health-check', methods=['GET'])
 def health_check():
@@ -21,11 +33,16 @@ def health_check():
 @app.route('/buddy-bot/v1/response', methods=['POST'])
 def response():
     question = request.json.get('question')
+
     context, url = webScraperFunc(question)
     answer = computeAnswer(question, f'''{context}''', params[0], params[1])
 
-    if '[SEP]' in answer:
+    bad_answer = '[SEP]' in answer or question.lower() in answer.lower()
+    bad_url = url == None or url == ''
+    
+    if bad_answer == True or bad_url == True:
         answer = ''
+        url = None
 
     try:
         connection = mysql.connector.connect(user='admin', password='dreamteam1234', host='buddybot.c2ao7w5qbjh5.us-east-2.rds.amazonaws.com', database='buddybot')
@@ -36,14 +53,14 @@ def response():
     connection.autocommit = True
 
     cur.callproc('programmingQ', [question, answer])
-
+      
     for result in cur.stored_results():
         row_ID = result.fetchone()[0]
 
     response = jsonify({
-       'response': answer,
-       'id': row_ID,
-       'url': url
+        'response': answer,
+        'id': row_ID,
+        'url': url
     })
 
     return response

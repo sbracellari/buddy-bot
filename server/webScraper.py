@@ -64,25 +64,29 @@ def webScraperFunc(question):
       print("No module named 'google' found")
 
   # to search
-  query = question + " site:docs.oracle.com OR site:geeksforgeeks.org OR site:w3schools.com OR site:geeksforgeeks.org OR site:towardsdatascience.com OR site:docs.python.org" 
+  query = question + " site:docs.oracle.com OR site:w3schools.com OR site:geeksforgeeks.org OR site:docs.python.org OR site:stackoverflow.com" 
 
   # map the inputs to the function blocks
   options = {'www.geeksforgeeks.org' : getArticleTag,
             'stackoverflow.com' : stackOverflow,
              'docs.oracle.com' : oracle,
              'docs.python.org' : docsPython,
-             'towardsdatascience.com' : getArticleTag,
+             #'towardsdatascience.com' : getArticleTag,
              'www.w3schools.com' : w3Schools,
   }
   context = ''
   url = ''
-  for j in search(query, tld="co.in", num=1, stop=1, pause=2):
-    #https://stackoverflow.com/questions/44021846/extract-domain-name-from-url-python
-    ext =  tldextract.extract(j)
-    url = j
-    if ext.subdomain != '':
-      context = options[ext.subdomain + '.' + ext.domain + '.' + ext.suffix](j)
-    else:
-      context = options[ext.domain + '.' + ext.suffix](j)
+  try:
+    for j in search(query, tld="co.in", num=1, stop=1, pause=2):
+        #https://stackoverflow.com/questions/44021846/extract-domain-name-from-url-python
+        ext =  tldextract.extract(j)
+        url = j
+        if ext.subdomain != '':
+            context = options[ext.subdomain + '.' + ext.domain + '.' + ext.suffix](j)
+        else:
+            context = options[ext.domain + '.' + ext.suffix](j)
+  except: 
+    context = ''
+    url = None
 
   return context, url
