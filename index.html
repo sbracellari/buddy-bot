@@ -2,80 +2,107 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-	<title>Buddy Bot - A Programmer's Best Buddy.</title>
+  <title>Buddy Bot - A Programmer's Best Buddy.</title>
+  <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="chat-bubble\component\styles\bb.css">
 	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/setup.css">
 	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/says.css">
 	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/reply.css">
 	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/typing.css">
 	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/input.css">
-	<style>
-	  body {
-      background: #adebeb;
-    }
-    .bubble-wrap, .bubble-container{
-      background: #d6f5f5;
-    }
-	  .bubble-container .input-wrap textarea {
-		  margin: 0;
-		  width: calc(100% - 30px);
-    }
-    .topnav {
-  overflow: hidden;
-  background-color: #7cb5c0;
-}
-
-.topnav a {
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-  display:flex;
-  justify-content: center;
-}
-
-.topnav a:hover {
-  background-color: #bbebf0;
-  color:#7cb5c0;
-  font-size: 24px;
-}
-
-.topnav a.home {
-  background-color: #7cb5c0;
-  color: #7cb5c0;
-  font-size: 24px;
-}
-	</style>
 </head>
-<body>
-  <div style="height: auto;">
-  <div class="topnav">
-    <a class="home" href="index.html">Home</a>
-  </div>
-  <div style="color:#7cb5c0;font-size: 24px;text-align: center;">
-    <h2>BUDDY BOT - A Programmer's Best Friend</h2>
-  </div>
-  <div style='display: flex; justify-content: center'> 
-    <img 
-      src="https://wallpaperaccess.com/full/557726.png" 
-      alt="buddy bot image"
-      style='height: 375px;'
-      usemap="#evil"
-    > 
-  </div>
-  <map name="evil">
-    <area shape="rect" coords="34,44,270,350" alt="buddybot" href="index.html">
-  </map>
-  </div>
 
-<!----ASHLEY ADD AN HTML IMAGE MAP TO THE TIP OF BUDDY BOT to turn him 'evil' !!-->
+<body>
+
+<div id="evil-button">
+    <a button id="buttonOfEvil" button onclick="evil=!evil; evilBuddy(); myFunction(); evilTitle(); change(); pictureChange(); changeToEvil(); evilBubbleWrap();">------</button></a>
+</div>
+
+
+<div id="title" div style="width:800px; margin:0 auto;">
+<p>BUDDY BOT: A PROGRAMMER'S BEST FRIEND</p>
+</div>
+
+<div class="navbar">
+  <div id="buttons">
+    <a href="https://github.com/sbracellari/buddy-bot">GITHUB</a>
+    <a href="https://sbracellari.github.io/buddy-bot/">HOME</a>
+  </div>
+    <!----<link rel="stylesheet" href="chat-bubble\component\styles\evilbb.css" id="theme">--->
+    <!---<<button id="switch">Evil Buddy Bot</button>--->
+     <!---<a href="https://sbracellari.github.io/buddy-bot/index.html" onclick="javascript:void window.open('https://sbracellari.github.io/buddy-bot/index.html','1606601172636','width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');return false;">FAQ</a>-->
+</div>
+
+
+<!--script to change header text for evil bb-->
+<script>
+  function myFunction() {
+    var title = document.getElementById("title");
+    if (title.innerHTML === "BUDDY BOT: A PROGRAMMER'S WORST NIGHTMARE") {
+      title.innerHTML = "BUDDY BOT: A PROGRAMMER'S BEST FRIEND";
+    } else {
+      title.innerHTML = "BUDDY BOT: A PROGRAMMER'S WORST NIGHTMARE";
+    }
+  }
+  </script>
+
+<h1>
+  <div class="fade-in">
+    <img id="normalBuddy" data-color="0" class="image" img src="buddypng.png" alt="buddy bot image"style="width:754px;height:378px;">
+  </div>
+</h1>
+
+<!--script to swap between images-->
+<script>
+  let normalBuddy = document.getElementById("normalBuddy");
+  let buttonOfEvil = document.getElementById("buttonOfEvil");
+  buttonOfEvil.addEventListener("click", changeToEvil);
+  function changeToEvil() {
+    var images = [ 
+      "buddypng.png",
+      "557726 (1).png"
+    ];
+    var imageNum = parseInt(normalBuddy.dataset.color);
+    var buddySwap = imageNum === 0 ? 1 : 0;
+    normalBuddy.src = images[buddySwap];
+    normalBuddy.dataset.color = buddySwap;
+  }
+  </script>
+<!--changes background theme to black-->
+<script>
+  function evilBuddy(){
+    var element = document.body;
+    element.classList.toggle("evil-buddy");
+  }
+</script>
+
+<script>
+  function evilBubbleWrap(){
+    var element = document.getElementById("bubble-wrap")
+    element.classList.toggle("evil-bubble-wrap");
+  }
+</script>
+
+
 <!---- the script -->
 <script src="./chat-bubble/component/Bubbles.js"></script>
 
 <!-- container element for chat window -->
 <div id="buddy-bot"></div>
 
+<!--Possible css switch (11-28-20)-->
+<!--<script>
+  document.getElementById('switch').onclick = function() {
+  if (document.getElementById('theme').href == "chat-bubble\component\styles\evilbb.css") {
+    document.getElementById('theme').href = "chat-bubble\component\styles\bb.css";
+  } else {
+    document.getElementById('theme').href = "chat-bubble\component\styles\evilbb.css";
+  }
+};
+</script>-->
+
 <script>
+var evil = false 
 // initialize by constructing a named function...
 // ...and add text processing plugin:
 var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow", {

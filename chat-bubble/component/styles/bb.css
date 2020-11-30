@@ -1,0 +1,147 @@
+body {
+    background: #adebeb;
+    font-style: helvetica;
+    overflow-x: hidden;
+    -webkit-transition-property: background;
+    -webkit-transition-duration: 2s;
+    transition-property: background;
+    transition-duration: 2s;
+  }
+  .element-style{
+    padding-bottom: 100px;
+    padding-top: 100px;
+  }
+  .bubble-wrap, .bubble-container{
+    background: #d6f5f5;
+  }
+    .bubble-container {
+    height: 100vh;
+    }
+    .bubble-container .input-wrap textarea {
+        margin: 0;
+    width: calc(100% - 30px);
+  }
+  #button {
+    font-size: 20px;
+    text-decoration: none;
+    padding: 12px 10px;
+    border: 3px solid #d6f5f5;
+    color:#f7f6f2;
+  }
+  /*.navbar {
+    text-align: center;
+  }
+  
+  .navbar a {
+    font-size: 20px;
+    text-decoration: none;
+    padding: 12px 10px;
+    border: 3px solid #d6f5f5;
+    color:#f7f6f2;
+  }
+  .navbar a:hover {
+    background-color:  #d6f5f5;
+    color: #7cb5c0;
+  }*/
+  #buttons{
+    text-align: center;
+  }
+  #buttons a {
+    font-size: 20px;
+    text-decoration: none;
+    padding: 12px 10px;
+    border: 3px solid #d6f5f5;
+    color:#f7f6f2;
+    text-shadow: 2px 2px #504f54; 
+  }
+  #buttons a:hover {
+    background-color:  #d6f5f5;
+    color: #7cb5c0;
+    text-shadow: 2px 2px #adebeb; 
+  }
+  /* evil buddy bot trigger button */
+  #evil-button a{
+    outline: 0;
+    color: #adebeb;
+  }
+  /* end of evil buddy trigger button */
+  #color{
+    transition-property: background-color;
+    transition-duration: 3s;
+  }
+  #title{
+    padding: 18px;
+    text-align: center;
+    font-weight: bold;
+    color:#7cb5c0;
+    font-size: 40px;
+    text-shadow: 2px 2px #504f54;
+  }
+  .evil-buddy{
+    background: #4d0013;
+    -webkit-transition-property: background;
+    -webkit-transition-duration: 2s;
+    transition-property: background;
+    transition-duration: 2s;
+    animation: fadeIn ease 8s;
+    -webkit-animation: fadeIn ease 8s;
+  }
+  #evil-bubble-wrap {
+    background: black;
+  }
+
+  .evil-title{
+    background-color: black;
+  }
+
+  .fade-in {
+    animation: fadeIn ease 1s;
+    -webkit-animation: fadeIn ease 1s;
+    -moz-animation: fadeIn ease 1s;
+    -o-animation: fadeIn ease 1s;
+    -ms-animation: fadeIn ease 1s;
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-moz-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-webkit-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-o-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-ms-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+  }
+  }
