@@ -12,7 +12,6 @@ from webScraper import geeksForGeeksFormatCode
 from webScraper import w3SchoolsFormatCode
 
 params = initModel()
-chatbot = initChat()
 
 app = Flask(__name__)
 CORS(app)
@@ -26,7 +25,7 @@ def bot_response(question):
     return response
 
 def chat_response(user_input):
-    chat = str(botResponse(user_input, chatbot[0], chatbot[1]))
+    chat = str(botResponse(user_input))
     return chat
 
 @app.route('/buddy-bot/v1/health-check', methods=['GET'])
@@ -67,7 +66,7 @@ def response():
     cur = connection.cursor(dictionary=True)
     connection.autocommit = True
 
-    cur.callproc('programmingQ', [question, answer])
+    cur.callproc('programmingQ', [question, answer, url])
       
     for result in cur.stored_results():
         row_ID = result.fetchone()[0]
@@ -84,7 +83,7 @@ def response():
 @app.route('/buddy-bot/v1/chat', methods=['POST'])
 def chat():
     user_input = request.json.get('sentence')
-    chat = str(botResponse(user_input, chatbot[0], chatbot[1]))
+    chat = str(botResponse(user_input))
     response = jsonify({ 'response': chat })
     return response
     return user_input
