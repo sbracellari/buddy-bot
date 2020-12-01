@@ -14,7 +14,6 @@
 }
 .bubble.reply.say {
   min-width: 350px;
-  word-wrap: anywhere;
   padding-right: 5px;
 }
 .bubble.reply .bubble-content {
@@ -77,6 +76,7 @@
   transform: scale(1) translate3d(0px, 0px, 0px);
   padding: 8px 16px;
   height: auto;
+  word-wrap: anywhere;
 }
 
 /* interaction recall styles */
