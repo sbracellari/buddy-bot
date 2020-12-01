@@ -8,8 +8,10 @@ from webScraper import webScraperFunc
 from model import initModel, computeAnswer
 from chatting import initChat, botResponse
 
+from webScraper import geeksForGeeksFormatCode
+from webScraper import w3SchoolsFormatCode
+
 params = initModel()
-chatbot = initChat()
 
 app = Flask(__name__)
 CORS(app)
@@ -23,7 +25,7 @@ def bot_response(question):
     return response
 
 def chat_response(user_input):
-    chat = str(botResponse(user_input, chatbot[0], chatbot[1]))
+    chat = str(botResponse(user_input))
     return chat
 
 @app.route('/buddy-bot/v1/health-check', methods=['GET'])
@@ -36,6 +38,18 @@ def response():
 
     context, url = webScraperFunc(question)
     answer = computeAnswer(question, f'''{context}''', params[0], params[1])
+    
+    code = None
+    #Get Formatted Code
+    try:
+        if(url.find('geeksforgeeks') != -1):
+            if(geeksForGeeksFormatCode(url) != ''):
+                code = geeksForGeeksFormatCode(url)
+        elif(url.find('w3schools') != -1):
+            if(w3SchoolsFormatCode(url) != ''):
+                code = w3SchoolsFormatCode(url)
+    except AttributeError:
+        print("Error in formatting code", AttributeError)
 
     bad_answer = '[SEP]' in answer or question.lower() in answer.lower()
     bad_url = url == None or url == ''
@@ -52,15 +66,16 @@ def response():
     cur = connection.cursor(dictionary=True)
     connection.autocommit = True
 
-    cur.callproc('programmingQ', [question, answer])
+    cur.callproc('programmingQ', [question, answer, url])
       
     for result in cur.stored_results():
         row_ID = result.fetchone()[0]
 
     response = jsonify({
-        'response': answer,
-        'id': row_ID,
-        'url': url
+       'response': answer,
+       'id': row_ID,
+       'url': url,
+       'code': code
     })
 
     return response
@@ -68,9 +83,10 @@ def response():
 @app.route('/buddy-bot/v1/chat', methods=['POST'])
 def chat():
     user_input = request.json.get('sentence')
-    chat = str(botResponse(user_input, chatbot[0], chatbot[1]))
+    chat = str(botResponse(user_input))
     response = jsonify({ 'response': chat })
     return response
+    return user_input
 
 @app.route('/buddy-bot/v1/success', methods=['POST'])
 def success():

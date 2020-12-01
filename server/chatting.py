@@ -5,7 +5,6 @@ import random
 
 
 def initChat():
-    default_response = 'Make it make sense (ノಠ益ಠ)ノ彡┻━┻'
     bot = ChatBot(
     'BuddyBot',
     storage_adapter='chatterbot.storage.SQLStorageAdapter',
@@ -18,31 +17,15 @@ def initChat():
         }
     ])
 
-    trainer = ListTrainer(bot)
-
-
-    trainer.train([
-        'Hey',
-        'Hello'])
-
-    trainer.train([
-        'How\'s it going?',
-        'It\'s going great!'
-    ])
-
-    trainer.train([
-        'How are you doing?',
-        'I am fine.'
-    ])
-
-    return bot, default_response
+    return bot
 
 def selectDefault():
     defaultList = ['Make it make sense (ノಠ益ಠ)ノ彡┻━┻', 'Oof I don\'t quite understand']
     ind = random.randint(0, len(defaultList) - 1)
     return defaultList[ind]
 
-def botResponse(user_input, bot, default_response):
+def botResponse(user_input):
+    bot = initChat()
     bot_input = bot.get_response(user_input)
     if bot_input.confidence < 0.5:
         return selectDefault()

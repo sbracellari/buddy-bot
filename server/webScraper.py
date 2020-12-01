@@ -17,6 +17,42 @@ def stackOverflow(URL):
     text = ''
   return text
 
+def geeksForGeeksFormatCode(URL):
+  try:
+    page = requests.get(URL)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    title_elem = soup.find('div', class_='container')
+    code = title_elem.find_all('div')
+    text = ''
+    for i in range(len(code)):
+      formatted_code = code[i].get_text().encode('ascii', 'ignore').decode('ascii')
+      if(i == 0):
+        text = formatted_code
+      else:
+        try:
+          indent = code[i].find('code', class_='undefined spaces')
+          text += '\n' + indent.text + formatted_code
+        except AttributeError:
+          text += '\n' + formatted_code 
+  except AttributeError:
+    text = ''
+  return text
+
+def w3SchoolsFormatCode(URL):
+  try:
+    page = requests.get(URL)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    title_elem = soup.find('div', class_='w3-example')
+    elem = title_elem.find_all('div')
+    if(elem == []):
+      elem = title_elem.find_all('pre')
+    text = str(elem[0]).replace('<br/>', '<br/>\n')
+    soup = BeautifulSoup(text, 'html.parser')
+    text = soup.text
+  except AttributeError:
+    text = ''
+  return text
+
 def getArticleTag(URL):
   try:
     page = requests.get(URL)
@@ -34,7 +70,16 @@ def docsPython(URL):
     results = soup.find("div", class_ = "section")
     text = results.get_text().encode('ascii', 'ignore').decode('ascii')
   except AttributeError:
-    text = ''
+    try:
+      page = requests.get(URL)
+      soup = BeautifulSoup(page.content, 'html.parser')
+      results = soup.find_all('p')
+      text = ''
+      for i in results:
+        text += i.text
+      text = results.get_text().encode('ascii', 'ignore').decode('ascii')
+    except AttributeError:
+      text = ''
   return text
 
 def w3Schools(URL):
@@ -90,3 +135,46 @@ def webScraperFunc(question):
     url = None
 
   return context, url
+
+#Not currently in use. Potential future implementation
+#Scrapes top 5 memes (past 24 hours) from ProgrammingHumor and randomly displays one of them
+#Pictures of the 5 memes are stored in local directory
+def reddit():
+  #!pip install praw
+  import praw,requests,re
+
+  r = praw.Reddit(client_id="tIjKIK3zNnJnvQ",
+                client_secret="8ke_e-1QjmJeD6ruV5iRSUKqC_M",
+                password="csi4999",
+                user_agent="Buddy Bot",
+                username="BuddyBot4999")
+  subreddit = r.subreddit('ProgrammerHumor')
+
+  import urllib.request
+  count = 0
+
+  # Iterate through top submissions
+  for submission in subreddit.hot(limit=None):
+
+    # Get the link of the submission
+    url = str(submission.url)
+
+    # Check if the link is an image
+    if url.endswith("jpg") or url.endswith("jpeg") or url.endswith("png"):
+
+        urllib.request.urlretrieve(url, f"image{count}")
+        count += 1
+
+        # Stop once you have 10 images
+        if count == 5:
+            break
+
+  from random import randint
+  x = randint(0, 4)
+  images = ['image0', 'image1', 'image2', 'image3', 'image4']
+
+  import matplotlib.pyplot as plt
+  img = plt.imread(images[x])
+  imgplot = plt.imshow(img)
+  plt.axis('off')
+  plt.show()
