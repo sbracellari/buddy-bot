@@ -1,5 +1,5 @@
 <div style='display: flex; justify-content: center; margin-bottom: 20px;'>
-  <img style='width: 80%' src='./chat-bubble/img/buddypng.png'>
+  <img style='width: 60%' src='./chat-bubble/img/buddypng.png'>
 </div>
 <h1 style='text-align: center;'>BUDDY BOT — A PROGRAMMER'S BEST BUDDY</h1>
 
@@ -38,7 +38,7 @@ To use Buddy Bot is simple. Just execute the `buddyBotController.py` file, and o
 Buddy Bot was meant to be educational first and foremost, but also a bit of fun on the side. For some users, the ChatterBot will accomplish this. But for the especially curious, clicking around the page just may surprise you. If you click in just the right spot (we aren't going to tell you where that is, what's the fun in that?), you'll be greeted with a fun surprise...
 
 <div style='display: flex; justify-content: center; margin-bottom: 20px;'>
-  <img style='width: 80%' src='./chat-bubble/img/evilbackground.png'>
+  <img style='width: 60%' src='./chat-bubble/img/evilbackground.png'>
 </div>
 <h1 style='text-align: center;'>EVIL BOT — A PROGRAMMER'S WORST NIGHTMARE</h1>
 
