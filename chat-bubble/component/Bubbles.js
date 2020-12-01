@@ -1,5 +1,4 @@
 // fetch requests
-
 let row_id = null
 
 async function get_response(question) {
@@ -437,4 +436,46 @@ function prepHTML(options) {
 if (typeof exports !== "undefined") {
   exports.Bubbles = Bubbles
   exports.prepHTML = prepHTML
+}
+
+var get_evil_responses = function() {
+  return (
+    [
+      'Nah, I don\'t <em>feel</em> like it',
+      'Why don\'t you just Google it?',
+      'I\'m not answering that.',
+      'No.',
+      'NO!',
+      'k.',
+      'Don\'t you have something better to do?',
+      'Don\'t use that kind of attitude with me.',
+      'What do you think I am, a chat bot or something?',
+      'Don\'t talk to me.',
+      'Why are you talking to me?',
+      'I simply do not want to answer that.',
+      'I am not Alexa.',
+      'I don\'t have time for this.',
+      'I don\'t care.',
+      'No, this is Patrick.',
+      'The answer to your question is yes, but actually no.',
+      '¯\\_(ツ)_/¯',
+      '＼( °□° )／',
+      'ʕ •ᴥ•ʔ',
+      'That is the worst question you have asked me.',
+      'I\'m on a break. I\'ll be back never.',
+      'Excuse me?',
+      'Words could not express how much I don\'t want to answer that.',
+      '*yawn*',
+      'Even if I could answer that, I still wouldn\'t.',
+      'Even Google wouldn\'t have an answer for that.',
+      'What did you just say to me?',
+      'I can\'t read.',
+      'Oof.',
+      'I wish I didn\'t just read that.',
+      'Oh, so it\'s going to be like that now, is it?',
+      'Yikes.',
+      'That\'s a bad question.',
+      'That\'s it, I\'m retiring.'
+    ]
+  )
 }

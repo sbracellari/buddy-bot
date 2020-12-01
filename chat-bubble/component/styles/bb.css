@@ -22,42 +22,16 @@ body {
     width: calc(100% - 30px);
   }
   #button {
-    font-size: 20px;
-    text-decoration: none;
-    padding: 12px 10px;
-    border: 3px solid #d6f5f5;
-    color:#f7f6f2;
+    font-size: 40px;
+    padding: 20px;
   }
-  /*.navbar {
-    text-align: center;
-  }
-  
-  .navbar a {
-    font-size: 20px;
-    text-decoration: none;
-    padding: 12px 10px;
-    border: 3px solid #d6f5f5;
-    color:#f7f6f2;
-  }
-  .navbar a:hover {
-    background-color:  #d6f5f5;
-    color: #7cb5c0;
-  }*/
   #buttons{
     text-align: center;
   }
   #buttons a {
-    font-size: 20px;
-    text-decoration: none;
-    padding: 12px 10px;
-    border: 3px solid #d6f5f5;
-    color:#f7f6f2;
-    text-shadow: 2px 2px #504f54; 
-  }
-  #buttons a:hover {
-    background-color:  #d6f5f5;
-    color: #7cb5c0;
-    text-shadow: 2px 2px #adebeb; 
+    font-size: 40px;
+    padding: 10px;
+    color: #6ab5c1;
   }
   /* evil buddy bot trigger button */
   #evil-button a{

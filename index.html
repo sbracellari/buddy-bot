@@ -10,23 +10,26 @@
 	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/reply.css">
 	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/typing.css">
 	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/input.css">
+  <script
+      src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"
+      data-auto-a11y="true"
+  ></script>
 </head>
 
 <body>
 
 <div id="evil-button">
-    <a button id="buttonOfEvil" button onclick="evil=!evil; evilBuddy(); myFunction(); evilTitle(); change(); pictureChange(); changeToEvil(); evilBubbleWrap();">------</button></a>
+  <button id="buttonOfEvil" style="opacity: 0; height: 20px;" onclick="evil=!evil; evilBuddy(); myFunction(); evilTitle(); pictureChange(); changeToEvil(); evilBubbleWrap();"></button>
 </div>
 
-
-<div id="title" div style="width:800px; margin:0 auto;">
-<p>BUDDY BOT: A PROGRAMMER'S BEST FRIEND</p>
+<div id="title" div style=title_style>
+<p style='margin: 0px;'>BUDDY BOT: A PROGRAMMER'S BEST FRIEND</p>
 </div>
 
 <div class="navbar">
   <div id="buttons">
-    <a href="https://github.com/sbracellari/buddy-bot">GITHUB</a>
-    <a href="https://sbracellari.github.io/buddy-bot/">HOME</a>
+    <a id="gh-button" href="https://github.com/sbracellari/buddy-bot"><i class="fab fa-github"></i></a>
+    <a id="h-button" href="https://sbracellari.github.io/buddy-bot/"><i class="fas fa-house-user"></i></a>
   </div>
     <!----<link rel="stylesheet" href="chat-bubble\component\styles\evilbb.css" id="theme">--->
     <!---<<button id="switch">Evil Buddy Bot</button>--->
@@ -38,17 +41,17 @@
 <script>
   function myFunction() {
     var title = document.getElementById("title");
-    if (title.innerHTML === "BUDDY BOT: A PROGRAMMER'S WORST NIGHTMARE") {
+    if (title.innerHTML === "EVIL BOT: A PROGRAMMER'S WORST NIGHTMARE") {
       title.innerHTML = "BUDDY BOT: A PROGRAMMER'S BEST FRIEND";
     } else {
-      title.innerHTML = "BUDDY BOT: A PROGRAMMER'S WORST NIGHTMARE";
+      title.innerHTML = "EVIL BOT: A PROGRAMMER'S WORST NIGHTMARE";
     }
   }
   </script>
 
 <h1>
   <div class="fade-in">
-    <img id="normalBuddy" data-color="0" class="image" img src="buddypng.png" alt="buddy bot image"style="width:754px;height:378px;">
+    <img id="normalBuddy" data-color="0" class="image" img src="./chat-bubble/img/buddypng.png" alt="buddy bot image"style="height:378px;">
   </div>
 </h1>
 
@@ -59,8 +62,8 @@
   buttonOfEvil.addEventListener("click", changeToEvil);
   function changeToEvil() {
     var images = [ 
-      "buddypng.png",
-      "557726 (1).png"
+      "./chat-bubble/img/buddypng.png",
+      "./chat-bubble/img/evilbackground.png"
     ];
     var imageNum = parseInt(normalBuddy.dataset.color);
     var buddySwap = imageNum === 0 ? 1 : 0;
@@ -73,6 +76,27 @@
   function evilBuddy(){
     var element = document.body;
     element.classList.toggle("evil-buddy");
+  }
+</script>
+
+<script>
+  function evilTitle() {
+    var title = document.getElementById('title')
+    var field = document.getElementById('chat-field')
+    var gh_button = document.getElementById('gh-button')
+    var h_button = document.getElementById('h-button')
+                  
+    evil ? (
+      title.style.color='lightgray',
+      field.style.background='lightgray',
+      gh_button.style.color='lightgray',
+      h_button.style.color='lightgray'
+    ) : (
+      title.style.color='#7cb5c0',
+      field.style.background='#d6f5f5',
+      gh_button.style.color='#6ab5c1',
+      h_button.style.color='#6ab5c1'
+    )
   }
 </script>
 
@@ -103,6 +127,13 @@
 
 <script>
 var evil = false 
+var evil_responses = get_evil_responses()
+
+function get_random_int(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+var title_style = evil ? 'width:800px; margin:0 auto; color: lightgrey;' : 'width:800px; margin:0 auto; color: #6ab5c1;'
 // initialize by constructing a named function...
 // ...and add text processing plugin:
 var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow", {
@@ -193,7 +224,21 @@ var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow",
       )
     }
 
-    reply = get_reply()
+    var evil_chat = function() {
+      chatWindow.talk(
+        {
+          "evil": {
+            says: [evil_responses[get_random_int(evil_responses.length)]],
+          }
+        },
+        "evil"
+      )
+    }
+
+    evil ? (
+      evil_chat()
+    ) : (
+    reply = get_reply(),
 
     reply === 'programming' ? (
       question_error = o.input.length > 75,
@@ -220,7 +265,9 @@ get_response(o.input)
           chat(response)
       })   
     )
+    )
   }
+    
 }) // done setting up chat-bubble
 
 // conversation object
