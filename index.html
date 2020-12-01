@@ -11,375 +11,399 @@
 	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/typing.css">
 	<link rel="stylesheet" media="all" href="./chat-bubble/component/styles/input.css">
   <script
-      src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"
-      data-auto-a11y="true"
+    src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"
+    data-auto-a11y="true"
   ></script>
 </head>
-
 <body>
-
-<div id="evil-button">
-  <button id="buttonOfEvil" style="opacity: 0; height: 20px;" onclick="evil=!evil; evilBuddy(); myFunction(); evilTitle(); pictureChange(); changeToEvil(); evilBubbleWrap();"></button>
-</div>
-
-<div id="title" div style=title_style>
-<p style='margin: 0px;'>BUDDY BOT: A PROGRAMMER'S BEST FRIEND</p>
-</div>
-
-<div class="navbar">
-  <div id="buttons">
-    <a id="gh-button" href="https://github.com/sbracellari/buddy-bot"><i class="fab fa-github"></i></a>
-    <a id="h-button" href="https://sbracellari.github.io/buddy-bot/"><i class="fas fa-house-user"></i></a>
+  <div id="evil-button">
+    <!-- this button will handle all transitions from buddy bot to evil bot -->
+    <button 
+      id="buttonOfEvil" 
+      style="opacity: 0; height: 20px;" 
+      onclick="evil=!evil; evilBuddy(); myFunction(); evilTheme(); pictureChange(); changeToEvil(); evilBubbleWrap();"
+    ></button>
   </div>
-    <!----<link rel="stylesheet" href="chat-bubble\component\styles\evilbb.css" id="theme">--->
-    <!---<<button id="switch">Evil Buddy Bot</button>--->
-     <!---<a href="https://sbracellari.github.io/buddy-bot/index.html" onclick="javascript:void window.open('https://sbracellari.github.io/buddy-bot/index.html','1606601172636','width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');return false;">FAQ</a>-->
-</div>
+  <div id="title" div>
+    <p style='margin: 0px;'>BUDDY BOT: A PROGRAMMER'S BEST FRIEND</p>
+  </div>
+  <div class="navbar">
+    <div id="buttons">
+      <a id="gh-button" href="https://github.com/sbracellari/buddy-bot">
+        <i class="fab fa-github"></i></a>
+      <a id="h-button" href="https://sbracellari.github.io/buddy-bot/">
+        <i class="fas fa-house-user"></i></a>
+    </div>
+  </div>
 
-
-<!--script to change header text for evil bb-->
-<script>
-  function myFunction() {
-    var title = document.getElementById("title");
-    if (title.innerHTML === "EVIL BOT: A PROGRAMMER'S WORST NIGHTMARE") {
-      title.innerHTML = "BUDDY BOT: A PROGRAMMER'S BEST FRIEND";
-    } else {
-      title.innerHTML = "EVIL BOT: A PROGRAMMER'S WORST NIGHTMARE";
+  <!--script to change header text for evil bb-->
+  <script>
+    function myFunction() {
+      var title = document.getElementById("title");
+      if (title.innerHTML === "EVIL BOT: A PROGRAMMER'S WORST NIGHTMARE") {
+        title.innerHTML = "BUDDY BOT: A PROGRAMMER'S BEST FRIEND";
+      } else {
+        title.innerHTML = "EVIL BOT: A PROGRAMMER'S WORST NIGHTMARE";
+      }
     }
-  }
   </script>
 
-<h1>
-  <div class="fade-in">
-    <img id="normalBuddy" data-color="0" class="image" img src="./chat-bubble/img/buddypng.png" alt="buddy bot image"style="height:378px;">
-  </div>
-</h1>
+  <!-- buddy bot image -->
+  <h1>
+    <div class="fade-in">
+      <img 
+        id="normalBuddy" 
+        data-color="0" 
+        class="image" 
+        img src="./chat-bubble/img/buddypng.png" 
+        alt="buddy bot image"
+        style="height:378px;"
+      >
+    </div>
+  </h1>
 
-<!--script to swap between images-->
-<script>
-  let normalBuddy = document.getElementById("normalBuddy");
-  let buttonOfEvil = document.getElementById("buttonOfEvil");
-  buttonOfEvil.addEventListener("click", changeToEvil);
-  function changeToEvil() {
-    var images = [ 
-      "./chat-bubble/img/buddypng.png",
-      "./chat-bubble/img/evilbackground.png"
-    ];
-    var imageNum = parseInt(normalBuddy.dataset.color);
-    var buddySwap = imageNum === 0 ? 1 : 0;
-    normalBuddy.src = images[buddySwap];
-    normalBuddy.dataset.color = buddySwap;
-  }
-  </script>
-<!--changes background theme to black-->
-<script>
-  function evilBuddy(){
-    var element = document.body;
-    element.classList.toggle("evil-buddy");
-  }
-</script>
+  <!--script to swap between images-->
+  <script>
+    // grab html elements by id
+    let normalBuddy = document.getElementById("normalBuddy");
+    let buttonOfEvil = document.getElementById("buttonOfEvil");
 
-<script>
-  function evilTitle() {
-    var title = document.getElementById('title')
-    var field = document.getElementById('chat-field')
-    var gh_button = document.getElementById('gh-button')
-    var h_button = document.getElementById('h-button')
-                  
-    evil ? (
-      title.style.color='lightgray',
-      field.style.background='lightgray',
-      gh_button.style.color='lightgray',
-      h_button.style.color='lightgray'
-    ) : (
-      title.style.color='#7cb5c0',
-      field.style.background='#d6f5f5',
-      gh_button.style.color='#6ab5c1',
-      h_button.style.color='#6ab5c1'
-    )
-  }
-</script>
+    // add event listener to button - takes an event 
+    // and a function
+    buttonOfEvil.addEventListener("click", changeToEvil);
 
-<script>
-  function evilBubbleWrap(){
-    var element = document.getElementById("bubble-wrap")
-    element.classList.toggle("evil-bubble-wrap");
-  }
-</script>
-
-
-<!---- the script -->
-<script src="./chat-bubble/component/Bubbles.js"></script>
-
-<!-- container element for chat window -->
-<div id="buddy-bot"></div>
-
-<!--Possible css switch (11-28-20)-->
-<!--<script>
-  document.getElementById('switch').onclick = function() {
-  if (document.getElementById('theme').href == "chat-bubble\component\styles\evilbb.css") {
-    document.getElementById('theme').href = "chat-bubble\component\styles\bb.css";
-  } else {
-    document.getElementById('theme').href = "chat-bubble\component\styles\evilbb.css";
-  }
-};
-</script>-->
-
-<script>
-var evil = false 
-var evil_responses = get_evil_responses()
-
-function get_random_int(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
-
-var title_style = evil ? 'width:800px; margin:0 auto; color: lightgrey;' : 'width:800px; margin:0 auto; color: #6ab5c1;'
-var code = null
-// initialize by constructing a named function...
-// ...and add text processing plugin:
-var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow", {
-  // the one that we care about is inputCallbackFn()
-  // this function returns an object with some data that we can process from user input
-  // and understand the context of it
-
-
-  // this is an example function that matches the text user typed to one of the answer bubbles
-  // this function does no natural language processing
-  // this is where you may want to connect this script to NLC backend.
-  inputCallbackFn: function(o) {
-    // do this if programming answer not found
-    var miss = function() {
-      chatWindow.talk(
-        {
-          "i-dont-get-it": {
-            says: [
-              "I cannot answer that question currently, hopefully I can reply soon!"
-            ],
-            reply:[{
-              question: "I just want to chat",
-              answer: "chat"
-            }]
-          }
-        },
-        "i-dont-get-it"
-      )
+    // function passed in event listener
+    function changeToEvil() {
+      var images = [ 
+        "./chat-bubble/img/buddypng.png",
+        "./chat-bubble/img/evilbackground.png"
+      ];
+      var imageNum = parseInt(normalBuddy.dataset.color);
+      var buddySwap = imageNum === 0 ? 1 : 0;
+      normalBuddy.src = images[buddySwap];
+      normalBuddy.dataset.color = buddySwap;
     }
+  </script>
 
-    // do this if programming answer found
-    var match = function(response, url) {
-      var link = `<a href=${url} target='_blank' rel='noopener noreferrer'>${url}</a>`
-    
-      code === null ? (
-        chatWindow.talk({
-          "i-get-it": {
-            says: [
-              response,
-              "This is where I found your answer: " + link,
-              "Was that helpful?"
-            ],
-            reply:[
-                {
-                  question: "Yes",
-                  answer: "yes"
-                }, 
-                {
-                  question: "No",
-                  answer: "no"
-                }
-              ]
-            }
-          },
-          "i-get-it"
-        )
+  <!--changes background theme to burgundy -->
+  <script>
+    function evilBuddy(){
+      var element = document.body;
+      element.classList.toggle("evil-buddy");
+    }
+  </script>
+
+  <!-- changes title, chat field, and button colors -->
+  <script>
+    function evilTheme() {
+      // grab html elements based on id
+      var title = document.getElementById('title')
+      var field = document.getElementById('chat-field')
+      var gh_button = document.getElementById('gh-button')
+      var h_button = document.getElementById('h-button')
+
+      // ternary to decide what styles they should have based
+      // on if the bot is in evil mode or not
+      evil ? (
+        title.style.color='lightgray',
+        field.style.background='lightgray',
+        gh_button.style.color='lightgray',
+        h_button.style.color='lightgray'
       ) : (
-        chatWindow.talk({
-          "i-get-it": {     
-            says: [
-              response,
-              "This is where I found your answer: " + link,
-              "Would you like an example code snippet?"
-            ],
-            reply: [
-                {
-                  question: "Sure",
-                  answer: "code"
-                }, 
-                {
-                  question: "No thanks",
-                  answer: "nocode"
+        title.style.color='#7cb5c0',
+        field.style.background='#d6f5f5',
+        gh_button.style.color='#6ab5c1',
+        h_button.style.color='#6ab5c1'
+      )
+    }
+  </script>
+
+  <!-- one last script for styling purposes -->
+  <script>
+    function evilBubbleWrap(){
+      var element = document.getElementById("bubble-wrap")
+      element.classList.toggle("evil-bubble-wrap");
+    }
+  </script>
+
+
+  <!---- the script -->
+  <script src="./chat-bubble/component/Bubbles.js"></script>
+
+  <!-- container element for chat window -->
+  <div id="buddy-bot"></div>
+
+  <script>
+    var evil = false // to keep track of evil mode
+    var evil_responses = get_evil_responses() // responses for evil mode
+  
+    // random int function to get a random responses from evil bot on every message sent
+    function get_random_int(max) {
+      return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    var code = null // to set a code snippet later on
+
+    // initialize by constructing a named function...
+    // ...and add text processing plugin:
+    var chatWindow = new Bubbles(document.getElementById("buddy-bot"), "chatWindow", {
+  
+    // the one that we care about is inputCallbackFn()
+    // this function returns an object with some data that we can process from user input
+    // and understand the context of it
+  
+      inputCallbackFn: function(o) {
+  
+        // do this if programming answer not found
+        var miss = function() {
+          chatWindow.talk(
+            {
+              "i-dont-get-it": {
+                says: [
+                  "I cannot answer that question currently, hopefully I can reply soon!"
+                ],
+                reply:[{
+                  question: "I just want to chat",
+                  answer: "chat"
+                }]
+              }
+            },
+            "i-dont-get-it"
+          )
+        }
+  
+        // do this if programming answer found
+        // PARAMS: response, url
+        // response is the chat bot's response
+        // url points to the site in which the response was found
+        var match = function(response, url) {
+  
+          // make the link clickable
+          var link = `<a href=${url} target='_blank' rel='noopener noreferrer'>${url}</a>`
+        
+          // response changes whether there is an available code snippet
+          code === null ? (
+            chatWindow.talk({ // say this if there is no code snippet
+              "i-get-it": {
+                says: [
+                  response,
+                  "This is where I found your answer: " + link,
+                  "Was that helpful?"
+                ],
+                reply:[
+                    {
+                      question: "Yes",
+                      answer: "yes"
+                    }, 
+                    {
+                      question: "No",
+                      answer: "no"
+                    }
+                  ]
                 }
-              ]
-            }
-          },
-          "i-get-it"
+              },
+              "i-get-it"
+            )
+          ) : (
+            chatWindow.talk({ // say this if there is a code snippet
+              "i-get-it": {     
+                says: [
+                  response,
+                  "This is where I found your answer: " + link,
+                  "Would you like an example code snippet?"
+                ],
+                reply: [
+                    {
+                      question: "Sure",
+                      answer: "code"
+                    }, 
+                    {
+                      question: "No thanks",
+                      answer: "nocode"
+                    }
+                  ]
+                }
+              },
+              "i-get-it"
+            )
+          )
+        }
+  
+        // do this for chatterbot purposes
+        var chat = function(response) {
+          chatWindow.talk(
+            {
+              "i-get-it": {
+                says: [response],
+                reply:[{
+                  question: "I have a programming question",
+                  answer: "programming"
+                }]
+              }
+            },
+            "i-get-it"
+          )
+        }
+  
+        // do this for evil bot purposes
+        var evil_chat = function() {
+          chatWindow.talk(
+            {
+              "evil": {
+                says: [evil_responses[get_random_int(evil_responses.length)]],
+              }
+            },
+            "evil"
+          )
+        }
+  
+        // lot's of ternary action here
+        // the general flow is this:
+        // first check if evil mode is on. if it is, we simply call the evil_chat() function defined above
+        // if evil mode is off, we check if the use is chatting or programming
+        // for chatting, call the chat() method
+        // for programming, first make sure the question is not too long, then send to backend
+        // if there's no response, call miss(), if there is a response, call match()
+        evil ? (
+          evil_chat()
+        ) : (
+
+          reply = get_reply(), // to determine if the user is programming or chatting
+    
+          reply === 'programming' ? (
+            question_error = o.input.length > 75, // checking length of question
+      
+            question_error ? ( // checking if there is a question error (question is too long)
+              chatWindow.talk(
+                {
+                  "too-long": {
+                    says: ["Your question is too long. Please try to limit it to 75 characters."]
+                  }
+                },
+                "too-long"
+              )
+            ) : (
+              // this happens if there is no question error
+              get_response(o.input) // fetch request defined in Bubbles.js
+                .then(data => {
+                  // set some variables that are returned from the fetch
+                  let response = data.response
+                  let url = data.url
+                  code = data.code
+      
+                  convo.code.says[1] = code;
+      
+                  // if no answer is found, an empty string will be returned
+                  (response === '' || url === null) ? miss() : match(response, url)
+                }) 
+            )
+          ) : (
+            // this will happen if we're just chatting
+            get_chat(o.input) // fetch request defined in Bubbles.js
+              .then(data => {
+                let response = data.response
+                chat(response)
+            })   
+          )
         )
-      )
-    }
-
-    // do this for chatting purposes
-    var chat = function(response) {
-      chatWindow.talk(
-        {
-          "i-get-it": {
-            says: [response],
-            reply:[{
-              question: "I have a programming question",
-              answer: "programming"
-            }]
-          }
-        },
-        "i-get-it"
-      )
-    }
-
-    var evil_chat = function() {
-      chatWindow.talk(
-        {
-          "evil": {
-            says: [evil_responses[get_random_int(evil_responses.length)]],
-          }
-        },
-        "evil"
-      )
-    }
-
-    evil ? (
-      evil_chat()
-    ) : (
-    reply = get_reply(),
-
-    reply === 'programming' ? (
-      question_error = o.input.length > 75,
-
-      question_error ? (
-        chatWindow.talk(
+      }
+    }) // done setting up chat-bubble
+  
+    // conversation object
+    var convo = {
+      ice: {
+        says: [
+          "Hello! Welcome to Buddy Bot - A Programmer's Best Buddy.", 
+          "I'm an interactive chatbot designed to help you with all of your programming needs.", 
+          "If you have a programming question, please type it below. Or, if you just want to chat with me, click on the 'I just want to chat' option.",
+        ],
+        reply: [
           {
-            "too-long": {
-              says: ["Your question is too long. Please try to limit it to 75 characters."]
-            }
-          },
-          "too-long"
-        )
-      ) : (
-        get_response(o.input)
-          .then(data => {
-            let response = data.response
-            let url = data.url
-            code = data.code
+            question: "I just want to chat",
+            answer: "chat"
+          }
+        ]
+      },
+      chat: {
+        says: [
+          "Great! I'm always happy to talk.", 
+          "Type whatever you'd like in the chat box below, or, if you have a programming question, you can click the 'I have a programming question' option."
+        ],
+        reply: [
+          {
+            question: "I have a programming question",
+            answer: "programming"
+          }
+        ]
+      },
+      programming: {
+        says: ["Type your question in the chat box below, and I'll be happy to answer."],
+        reply: [
+          {
+            question: "I just want to chat",
+            answer: "chat"
+          }
+        ]
+      },
+      yes: {
+        says: [
+          "Wonderful! I'm glad I could help.",
+          "You can type another programming question below, or click the 'I just want to chat' option if you'd like to chat."
+        ],
+        reply: [
+          {
+            question: "I just want to chat",
+            answer: "chat"
+          }
+        ] 
+      },
+      no: {
+        says: [
+          "I'm sorry I couldn't find the right answer for you. You can either try to ask again, ask a different question, or click the 'I just want to chat' option if you would just like to chat."
+        ],
+        reply: [
+          {
+            question: "I just want to chat",
+            answer: "chat"
+          }
+        ] 
+      },
+      nocode: {
+        says: [
+          "Sure thing.",
+          "Was my above answer helpful?"
+        ],
+        reply: [
+          {
+            question: "Yes",
+            answer: "yes"
+          }, 
+          {
+            question: "No",
+            answer: "no"
+          }
+        ]
+      },
+      code: {
+        says: [
+          "Awesome! Here's the code:",
+          code,
+          "Was this helpful?"
+        ],
+        reply: [
+          {
+            question: "Yes",
+            answer: "yes"
+          }, 
+          {
+            question: "No",
+            answer: "no"
+          }
+        ]
+      }
+    }
 
-            convo.code.says[1] = code;
-
-            // if no answer is found, an empty string will be returned
-            (response === '' || url === null) ? miss() : match(response, url)
-        }) 
-      )
-    ) : (
-      get_chat(o.input)
-        .then(data => {
-          let response = data.response
-          chat(response)
-      })   
-    )
-    )
-  }
-    
-}) // done setting up chat-bubble
-
-// conversation object
-var convo = {
-  ice: {
-    says: [
-      "Hello! Welcome to Buddy Bot - A Programmer's Best Buddy.", 
-      "I'm an interactive chatbot designed to help you with all of your programming needs.", 
-      "If you have a programming question, please type it below. Or, if you just want to chat with me, click on the 'I just want to chat' option.",
-    ],
-    reply: [
-      {
-        question: "I just want to chat",
-        answer: "chat"
-      }
-    ]
-  },
-  chat: {
-    says: [
-      "Great! I'm always happy to talk.", 
-      "Type whatever you'd like in the chat box below, or, if you have a programming question, you can click the 'I have a programming question' option."
-    ],
-    reply: [
-      {
-        question: "I have a programming question",
-        answer: "programming"
-      }
-    ]
-  },
-  programming: {
-    says: ["Type your question in the chat box below, and I'll be happy to answer."],
-    reply: [
-      {
-        question: "I just want to chat",
-        answer: "chat"
-      }
-    ]
-  },
-  yes: {
-    says: [
-      "Wonderful! I'm glad I could help.",
-      "You can type another programming question below, or click the 'I just want to chat' option if you'd like to chat."
-    ],
-    reply: [
-      {
-        question: "I just want to chat",
-        answer: "chat"
-      }
-    ] 
-  },
-  no: {
-    says: [
-      "I'm sorry I couldn't find the right answer for you. You can either try to ask again, ask a different question, or click the 'I just want to chat' option if you would just like to chat."
-    ],
-    reply: [
-      {
-        question: "I just want to chat",
-        answer: "chat"
-      }
-    ] 
-  },
-  nocode: {
-    says: [
-      "Sure thing.",
-      "Was my above answer helpful?"
-    ],
-    reply: [
-      {
-        question: "Yes",
-        answer: "yes"
-      }, 
-      {
-        question: "No",
-        answer: "no"
-      }
-    ]
-  },
-  code: {
-    says: [
-      "Awesome! Here's the code:",
-      code,
-      "Was this helpful?"
-    ],
-    reply: [
-      {
-        question: "Yes",
-        answer: "yes"
-      }, 
-      {
-        question: "No",
-        answer: "no"
-      }
-    ]
-  }
-}
-
-// pass JSON to your function and you're done!
-chatWindow.talk(convo)
-</script>
+    // pass JSON to your function and you're done!
+    chatWindow.talk(convo)
+  </script>
 </body>

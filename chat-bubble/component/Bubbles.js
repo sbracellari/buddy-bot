@@ -1,9 +1,10 @@
-// fetch requests
-let row_id = null
+let row_id = null // for use in success measuring
 
+// fetch requests
 async function get_response(question) {
-  const is_demo = false
+  const is_demo = false // change to true to use demo data
   
+  // so that we don't need to run the backend to use the frontend
   if(is_demo) {
     return { 
       response: 'Use margin : auto',
@@ -23,7 +24,7 @@ async function get_response(question) {
     })    
 
     const data = await response.json()
-    row_id = data.id
+    row_id = data.id // setting row id for use in success measuring
     return data 
   } catch (err) {
     return err
@@ -31,8 +32,9 @@ async function get_response(question) {
 }
 
 async function get_chat(sentence) {
-  const is_demo = false
+  const is_demo = false // change to true to use demo data
   
+  // so that we don't need to run the backend to use the frontend
   if(is_demo) {
     return { response: 'Good morning!' }
   }
@@ -55,8 +57,9 @@ async function get_chat(sentence) {
 }
 
 async function send_feedback(success, id) {
-  const is_demo = false
+  const is_demo = false // change to true to use demo data
   
+  // so that we don't need to run the backend to use the frontend
   if(is_demo) {
     return console.log('success: ' + success + '\nid: ' + id)
   }
@@ -80,6 +83,7 @@ async function send_feedback(success, id) {
   }
 }
 
+// to track whether we're programming or chatting
 let reply = 'programming'
 var get_reply = function() {
   return reply
@@ -116,6 +120,7 @@ function Bubbles(container, self, options) {
       return false
     }
   }
+
   var localStorageAvailable = localStorageCheck() && recallInteractions > 0
   var interactionsLS = "chat-bubble-interactions"
   var interactionsHistory =
@@ -247,6 +252,7 @@ function Bubbles(container, self, options) {
         : bubbleTyping.classList.add("imagine")
     })
   }
+
   // navigate "answers"
   this.answer = function(key, content) {
     var func = function(key, content) {
@@ -263,13 +269,16 @@ function Bubbles(container, self, options) {
         "reply reply-pick"
       )
     }
+
     // we can hard code these values since they're hardcoded options in the conversation itself
+    // this is used to track if we're programming or chatting
     if (content === 'I just want to chat') {
       reply = 'chatting'
     } else if (content === 'I have a programming question') {
       reply = 'programming'
     } 
 
+    // this is used to check if the user said the answer was helpful or not
     if (content === 'Yes') {
       success = 1
       send_feedback(success, row_id)
@@ -338,6 +347,7 @@ function Bubbles(container, self, options) {
             el.style.width = el.offsetWidth - sidePadding * 2 + widerBy + "px"
         })(bubbleButtons[z])
       }
+
       bubble.addEventListener("click", function(e) {
         if (e.target.classList.contains('bubble-button')) {
           for (var i = 0; i < bubbleButtons.length; i++) {
@@ -351,6 +361,7 @@ function Bubbles(container, self, options) {
         }
       })
     }
+
     // time, size & animate
     wait = live ? animationTime * 2 : 0
     minTypingWait = live ? animationTime * 6 : 0
@@ -361,9 +372,11 @@ function Bubbles(container, self, options) {
         bubbleTyping.classList.remove("imagine")
       }, animationTime)
     }
+
     live && setTimeout(function() {
       bubbleTyping.classList.add("imagine")
     }, wait - animationTime * 2)
+
     bubbleQueue = setTimeout(function() {
       bubble.classList.remove("imagine")
       var bubbleWidthCalc = bubbleContent.offsetWidth + widerBy + "px"
@@ -394,6 +407,7 @@ function Bubbles(container, self, options) {
           })()
         }
       }
+
       setTimeout(scrollBubbles, animationTime / 2)
     }, wait + animationTime * 2)
   }
@@ -446,10 +460,11 @@ if (typeof exports !== "undefined") {
   exports.prepHTML = prepHTML
 }
 
+// responses for evil buddy bot
 var get_evil_responses = function() {
   return (
     [
-      'Nah, I don\'t <em>feel</em> like it',
+      'Nah, I don\'t feel like it',
       'Why don\'t you just Google it?',
       'I\'m not answering that.',
       'No.',

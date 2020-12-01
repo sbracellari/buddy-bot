@@ -9,16 +9,20 @@
   padding: 0;
   max-width: 65%;
 }
+
 .bubble.reply.history {
   margin: 0 0 2px 0; /* remembered bubbles do not need to stand out via margin */
 }
+
 .bubble.reply.say {
   min-width: 350px;
   padding-right: 5px;
 }
+
 .bubble.reply .bubble-content {
   transition: all 200ms;
 }
+
 .bubble.reply .bubble-content .bubble-button {
   background: rgba(44, 44, 44, 0.67);
   color: #fff;
@@ -26,23 +30,21 @@
   border-radius: 15px 15px 5px 5px;
   margin-left: 2px;
   text-align: center;
-  display: inline-block;
   float: right;
   cursor: pointer;
   transition: all 200ms;
   text-decoration: none;
   word-break: normal;
 	box-sizing: content-box;
-  /* animation-duration: 1s; */
   animation-name: "animate-reply";
   animation-play-state: paused;
   animation-fill-mode: forwards;
-  /* opacity: 0; */
   transform: translate3d(0px, 0px, 0px);
   animation-delay: -3s;
   -ms-animation-delay: -3;
   -webkit-animation-delay: -3s;
 }
+
 @keyframes animate-reply {
   from {
     opacity: 0;
@@ -51,6 +53,7 @@
     opacity: 1;
   }
 }
+
 .bubble.reply.say .bubble-content .bubble-button {
   animation-play-state: running;
   margin-top: 3px;
@@ -62,14 +65,17 @@
   border-radius: 15px 15px 15px 5px;
   margin-left: 2px;
 }
+
 .bubble.reply .bubble-content .bubble-button:last-child,
 .bubble.reply .bubble-content .bubble-button.bubble-pick {
   border-radius: 15px 15px 5px 15px;
 }
+
 .bubble.reply.bubble-picked .bubble-content .bubble-button {
   transform: scale(0) translate3d(0px, 0px, 0px);
   padding: 0;
 }
+
 .bubble.reply:not(.bubble-picked) .bubble-content .bubble-button:hover,
 .bubble.reply .bubble-content .bubble-button.bubble-pick {
   background: rgba(44, 44, 44, 1);
@@ -95,16 +101,19 @@
   border: 0;
   outline: 0;
 }
+
 .bubble .bubble-content input::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   color: rgba(255, 255, 255, .5);
   text-shadow: none;
 }
+
 .bubble .bubble-content input::-moz-placeholder {
   /* Firefox 19+ */
   color: rgba(255, 255, 255, .5);
   text-shadow: none;
 }
+
 .bubble .bubble-content input:read-only {
   background: linear-gradient(166deg, #48121d, #0d4058 100%) !important;
 }
