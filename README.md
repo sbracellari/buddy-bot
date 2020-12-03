@@ -29,6 +29,8 @@ The following packages can be installed with `pip`:
 - `bs4`
 - `tldextract`
 
+It is important to note that you will also need to have NodeJS and npm installed.
+
 ## How To Use
 
 To use Buddy Bot is simple. Just execute the `buddyBotController.py` file, and open up the `index.html` in your browser. You'll want to make sure that the fetch requests are pointed toward `localhost:5000`, though, or else any chatting you do will not work.
