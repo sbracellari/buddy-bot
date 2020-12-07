@@ -1,27 +1,30 @@
 /* setup container styles */
 .bubble-container {
-	background: #dcdde0;
-	height: auto;
-	max-width: 667px;
-	width: 100%;
-	margin: 20px auto;
-	overflow: hidden;
-	position: relative;
+  background: #dcdde0;
+  height: auto;
+  max-width: 667px;
+  width: 100%;
+  margin: 20px auto;
+  overflow: hidden;
+  position: relative;
 }
+
 .bubble-wrap {
-	overflow-y: scroll;
-	height: 45vh;
-	margin-right: -20px;
-	padding: 15px 15px 0px 15px;
+  overflow-y: scroll;
+  height: 45vh;
+  margin-right: -20px;
+  padding: 15px 15px 0px 15px;
 }
+
 /* optional page styles */
 h1 {
-	text-align: center;
-	font-weight: 300;
-	font-size: 4em;
-	margin: .5em auto 0.15em;
+  text-align: center;
+  font-weight: 300;
+  font-size: 4em;
+  margin: .5em auto 0.15em;
 }
+
 body {
-	font-family: "Helvetica Neue", Helvetica, sans-serif;
-	margin: 0;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  margin: 0;
 }

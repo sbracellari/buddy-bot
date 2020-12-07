@@ -1,6 +1,6 @@
-CREATE PROCEDURE `programmingQ` (q VARCHAR(100), r TEXT)
+CREATE PROCEDURE `programmingQ`(q VARCHAR(100), r TEXT, u TEXT)
 BEGIN
 
-SELECT programmingQuestion(q, r);
+SELECT programmingQuestion(q, r, u);
 
 END

@@ -20,9 +20,11 @@
   transition: all 200ms;
   box-sizing: content-box;
 }
+
 .bubble .bubble-content {
   transition: opacity 150ms;
 }
+
 .bubble:not(.say) .bubble-content {
   opacity: 0;
 }
@@ -31,6 +33,7 @@
   transform: scale(0);
   transition: all 200ms, height 200ms 1s, padding 200ms 1s;
 }
+
 .bubble.imagine {
   margin: 0;
   height: 0;
@@ -53,6 +56,7 @@
 .bubble.history .bubble-content .bubble-button:hover {
   transition: all 0ms !important;
 }
+
 .bubble.history {
   opacity: .25;
 }
