@@ -26,10 +26,14 @@ def bot_response(question):
     context, url = webScraperFunc(question)
     answer = computeAnswer(question, f'''{context}''', params[0], params[1])
 
-    bad_answer = '[SEP]' in answer or question.lower() in answer.lower() or answer is ''
+    bad_answer = '[SEP]' in answer or answer.lower() in question.lower() or answer is ''
 
     #If there is no answer recieved from BERT, it responds with 'Waddaya talkin' about?'
-    response = 'Waddaya talkin\' bout?' if bad_answer else answer
+    if bad_answer == True:
+        response = 'Waddaya talkin\' bout?'
+    else:
+        response = answer
+
     return response
 
 #chat_response takes a user input and runs it through chatterbot, which then returns a 
