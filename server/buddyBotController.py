@@ -26,7 +26,7 @@ def bot_response(question):
     context, url = webScraperFunc(question)
     answer = computeAnswer(question, f'''{context}''', params[0], params[1])
 
-    bad_answer = '[SEP]' in answer or lower(question) in lower(answer) or answer is ''
+    bad_answer = '[SEP]' in answer or question.lower() in answer.lower() or answer is ''
 
     #If there is no answer recieved from BERT, it responds with 'Waddaya talkin' about?'
     response = 'Waddaya talkin\' bout?' if bad_answer else answer
